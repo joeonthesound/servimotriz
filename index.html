@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servimotriz PTY | Mecánico a Domicilio y Electromecánico en Panamá</title>
+    <meta name="description" content="Taller móvil y mecánico a domicilio en Arraiján, Panamá Oeste y Ciudad de Panamá. Escáner computarizado, frenos, mantenimiento preventivo y electromecánica de rescate de alta velocidad.">
+    <meta name="keywords" content="Mecánico a domicilio, Electromecánico a domicilio, Taller móvil, Mecánico en Arraiján, Electromecánico en Panamá Oeste, Taller a domicilio, Auxilio vial, Alternador, Motor de arranque">
+    
+    <!-- Open Graph (Redes Sociales) -->
+    <meta property="og:title" content="Servimotriz PTY | Mecánico a Domicilio y Taller Móvil">
+    <meta property="og:description" content="Tu taller mecánico de confianza en Arraiján y todo Panamá. ¡Vamos directo a tu ubicación!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=800">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#F59E0B', // Amber 500
+                            darkyellow: '#D97706', // Amber 600
+                            charcoal: '#111827', // Gray 900
+                            slate: '#1F2937', // Gray 800
+                            light: '#F9FAFB', // Gray 50
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Leaflet CSS (Mapas Ligeros & Mobile-First) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Schema.org Microdatos Estructurados (JSON-LD) para SEO Local -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "AutoRepair"],
+      "name": "Servimotriz PTY",
+      "image": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=800",
+      "@id": "https://servimotrizpty.com",
+      "url": "https://servimotrizpty.com",
+      "telephone": "+50764773172",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Arraiján",
+        "addressRegion": "Panamá Oeste",
+        "addressCountry": "PA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 8.9472,
+        "longitude": -79.6558
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "areaServed": [
+        {"@type": "AdministrativeArea", "name": "Arraiján"},
+        {"@type": "AdministrativeArea", "name": "La Chorrera"},
+        {"@type": "AdministrativeArea", "name": "Los Andes"},
+        {"@type": "AdministrativeArea", "name": "Las Acacias"},
+        {"@type": "AdministrativeArea", "name": "Don Bosco"},
+        {"@type": "AdministrativeArea", "name": "Panamá Oeste"},
+        {"@type": "AdministrativeArea", "name": "Panamá"}
+      ]
+    }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F59E0B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D97706;
+        }
+    </style>
+</head>
+<body class="bg-brand-light text-brand-charcoal overflow-x-hidden antialiased">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-brand-charcoal/95 backdrop-blur-md border-b border-gray-800 text-white transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="bg-brand-yellow text-brand-charcoal p-2 rounded-lg font-black tracking-tight flex items-center justify-center transition-transform group-hover:scale-105">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-xl tracking-wider leading-none text-white">SERVIMOTRIZ <span class="text-brand-yellow">PTY</span></span>
+                    <span class="text-xs text-gray-400 font-medium tracking-widest mt-0.5">Mecánico a Domicilio</span>
+                </div>
+            </a>
+
+            <!-- Nav Links Desktop -->
+            <nav class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#servicios" class="hover:text-brand-yellow transition-colors duration-200" data-i18n="nav_services">Servicios</a>
+                <a href="#garantia" class="hover:text-brand-yellow transition-colors duration-200" data-i18n="nav_pricing">Garantía y Costos</a>
+                <a href="#cotizador" class="hover:text-brand-yellow transition-colors duration-200" data-i18n="nav_wizard">Cotizar Ahora</a>
+            </nav>
+
+            <!-- Language Switcher & CTA -->
+            <div class="flex items-center gap-4">
+                <!-- Dropdown Idiomas -->
+                <div class="relative inline-block text-left">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-800 text-white text-sm font-semibold rounded-lg px-2.5 py-1.5 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-yellow cursor-pointer">
+                        <option value="es" selected>🇪🇸 ES</option>
+                        <option value="en">🇺🇸 EN</option>
+                        <option value="zh">🇨🇳 中文</option>
+                    </select>
+                </div>
+
+                <!-- CTA Header Desktop -->
+                <a href="#cotizador" class="hidden sm:inline-flex items-center gap-2 bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-bold px-5 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-md shadow-brand-yellow/10" data-i18n="btn_header_cta">
+                    Solicitar Auxilio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FLOATING CONTACT BUTTON (MOBILE EXCLUSIVE / CONVERSION INJECTOR) -->
+    <div class="fixed bottom-6 right-6 z-40 md:hidden">
+        <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl transition-transform hover:scale-110 animate-bounce">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.731-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 1.977 14.067.951 11.451.951c-5.436 0-9.86 4.37-9.864 9.8 0 1.696.443 3.353 1.284 4.808L1.875 22.13l6.772-1.776zm12.37-5.418c-.33-.165-1.95-.964-2.251-1.074-.3-.109-.518-.165-.736.165-.218.33-.842 1.073-1.032 1.293-.19.22-.38.247-.71.082-.33-.165-1.393-.513-2.653-1.636-1.01-.9-1.69-2.011-1.888-2.34-.197-.33-.02-.508.145-.671.148-.147.33-.385.495-.578.165-.192.22-.33.33-.55.11-.22.055-.412-.028-.577-.082-.165-.736-1.772-1.008-2.433-.266-.649-.538-.562-.736-.572-.19-.01-.408-.012-.626-.012-.218 0-.573.082-.872.412-.3.33-1.143 1.116-1.143 2.72 0 1.604 1.171 3.159 1.334 3.378.163.22 2.304 3.516 5.582 4.931.78.337 1.39.538 1.865.688.784.249 1.497.214 2.061.13.629-.094 1.95-.798 2.224-1.57.275-.771.275-1.43.193-1.569-.083-.14-.3-.22-.63-.385z"/></svg>
+        </a>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main>
+        
+        <!-- HERO SECTION (SEO Intent & High Conversion) -->
+        <section class="relative bg-brand-charcoal text-white overflow-hidden py-16 sm:py-24 lg:py-32">
+            <!-- Background Image Overlay with Gradients -->
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=85&w=1920" alt="Mecánico a domicilio trabajando en motor de auto" class="w-full h-full object-cover opacity-25 object-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/80 to-transparent"></div>
+                <div class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-brand-yellow/10 to-transparent hidden lg:block"></div>
+            </div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 flex flex-col justify-center space-y-6">
+                    <!-- Dynamic Badge -->
+                    <div class="inline-flex items-center gap-2 self-start bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow px-4 py-1.5 rounded-full text-sm font-bold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-brand-yellow animate-ping"></span>
+                        <span data-i18n="hero_badge">Servicio de Auxilio Vial y Mecánica Móvil 24/7</span>
+                    </div>
+
+                    <!-- SEO H1 Header -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        <span data-i18n="hero_title_1">Servimotriz PTY:</span> 
+                        <span class="text-brand-yellow" data-i18n="hero_title_2">El taller que va contigo</span>
+                    </h1>
+
+                    <!-- SEO Subtitle / Location Target -->
+                    <p class="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-2xl" data-i18n="hero_desc">
+                        ¿Varado o sin tiempo? Ofrecemos el mejor servicio de mecánico a domicilio, electromecánica móvil y escáner automotriz en Arraiján, Panamá Oeste y Ciudad de Panamá (con cobertura especial hasta Don Bosco, Las Acacias y Los Andes).
+                    </p>
+
+                    <!-- Trust Badges & Metrics -->
+                    <div class="grid grid-cols-3 gap-4 py-4 max-w-xl text-center lg:text-left border-y border-gray-800">
+                        <div>
+                            <p class="text-brand-yellow text-2xl sm:text-3xl font-extrabold">100%</p>
+                            <p class="text-xs sm:text-sm text-gray-400 font-medium" data-i18n="stat_mobile">Móvil a Domicilio</p>
+                        </div>
+                        <div>
+                            <p class="text-brand-yellow text-2xl sm:text-3xl font-extrabold">&lt; 45m</p>
+                            <p class="text-xs sm:text-sm text-gray-400 font-medium" data-i18n="stat_time">Tiempo de Arribo Promedio</p>
+                        </div>
+                        <div>
+                            <p class="text-brand-yellow text-2xl sm:text-3xl font-extrabold">1000+</p>
+                            <p class="text-xs sm:text-sm text-gray-400 font-medium" data-i18n="stat_repairs">Autos Reparados</p>
+                        </div>
+                    </div>
+
+                    <!-- Hero Call to Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#cotizador" class="flex items-center justify-center gap-2 bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-extrabold text-lg px-8 py-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-brand-yellow/20">
+                            <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <span data-i18n="hero_cta_main">Cotizar mi Daño</span>
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 text-white border-2 border-white/20 hover:border-white px-8 py-4 rounded-2xl text-lg font-bold transition-all duration-300">
+                            <span data-i18n="hero_cta_sec">Llamar Mecánico Directo</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Column: Quick Contact Form (Replaces static preview card) -->
+                <div class="lg:col-span-5 relative flex justify-center w-full">
+                    <div class="w-full max-w-md bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-6 sm:p-8 border border-gray-700 shadow-2xl relative overflow-hidden">
+                        <div class="absolute -top-12 -right-12 w-40 h-40 bg-brand-yellow/10 rounded-full blur-3xl animate-pulse"></div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-black text-white mb-2 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-yellow animate-ping"></span>
+                                <span data-i18n="quick_form_title">Contacto Express 24/7</span>
+                            </h3>
+                            <p class="text-xs text-gray-400 mb-6 leading-relaxed" data-i18n="quick_form_subtitle">¿Necesitas ayuda urgente? Déjanos tus datos y te responderemos de inmediato por WhatsApp.</p>
+                            
+                            <!-- Hero Quick Form Error Alert -->
+                            <div id="quickFormError" class="hidden mb-4 p-3 bg-red-900/40 border border-red-500/30 text-red-200 rounded-xl text-xs flex items-center gap-2">
+                                <svg class="w-4 h-4 flex-shrink-0 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                                <span id="quickFormErrorText">Por favor completa los campos requeridos.</span>
+                            </div>
+
+                            <form id="heroQuickForm" onsubmit="event.preventDefault(); sendQuickForm();" class="space-y-4">
+                                <div class="flex flex-col">
+                                    <label for="quickName" class="text-xs font-bold text-gray-400 mb-1" data-i18n="quick_name_lbl">Tu Nombre</label>
+                                    <input type="text" id="quickName" required class="bg-gray-950/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all placeholder-gray-600">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="quickPhone" class="text-xs font-bold text-gray-400 mb-1" data-i18n="quick_phone_lbl">Teléfono / Celular</label>
+                                    <input type="tel" id="quickPhone" required class="bg-gray-950/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all placeholder-gray-600">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="quickMessage" class="text-xs font-bold text-gray-400 mb-1" data-i18n="quick_msg_lbl">¿Qué le pasa a tu auto?</label>
+                                    <textarea id="quickMessage" rows="3" required class="bg-gray-950/60 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all placeholder-gray-600"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-brand-yellow/10 transform hover:-translate-y-0.5 mt-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                    </svg>
+                                    <span data-i18n="quick_btn_send">Enviar Consulta Rápida</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE SERVICIOS ESTRUCTURADOS (SEO Optimizado) -->
+        <section id="servicios" class="py-20 sm:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold tracking-widest text-brand-yellow uppercase mb-3" data-i18n="services_sub">Soluciones Especializadas a tu Alcance</h2>
+                    <h3 class="text-3xl sm:text-4xl font-black text-brand-charcoal tracking-tight" data-i18n="services_title">Nuestros Servicios de Mecánica Móvil</h3>
+                    <p class="text-lg text-gray-600 mt-4 leading-relaxed" data-i18n="services_desc">
+                        No necesitas grúas ni largas esperas en un taller tradicional. Resolvemos cualquier avería de tu vehículo directamente en tu casa, oficina o en plena carretera.
+                    </p>
+                </div>
+
+                <!-- Grid of Services -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Servicio 1: Diagnóstico Computarizado -->
+                    <div class="bg-brand-light p-8 rounded-2xl border border-gray-100 hover:border-brand-yellow/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brand-yellow/10 text-brand-yellow flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-yellow transition-colors" data-i18n="srv_1_title">Diagnóstico Computarizado (Escáner)</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed" data-i18n="srv_1_desc">
+                                Detección precisa de fallas con escáner avanzado OBD-II. Interpretación exacta de códigos de error, fugas de aire, fallas de sensores y cableado defectuoso.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-200/50 flex items-center justify-between text-xs text-gray-500 font-bold">
+                            <span data-i18n="srv_tag_quick">Asistencia Inmediata</span>
+                            <span class="text-brand-yellow">OBD Pro</span>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 2: Sistema de Frenos -->
+                    <div class="bg-brand-light p-8 rounded-2xl border border-gray-100 hover:border-brand-yellow/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brand-yellow/10 text-brand-yellow flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-yellow transition-colors" data-i18n="srv_2_title">Sistema de Frenos</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed" data-i18n="srv_2_desc">
+                                Cambio de tacos (pastillas) de freno, cambio de bandas, ajuste preciso del freno de mano y purgado para asegurar tu máxima capacidad de detención y seguridad.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-200/50 flex items-center justify-between text-xs text-gray-500 font-bold">
+                            <span data-i18n="srv_tag_safety">Seguridad Activa</span>
+                            <span class="text-brand-yellow">ABS / Frenos</span>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 3: Mantenimiento Preventivo -->
+                    <div class="bg-brand-light p-8 rounded-2xl border border-gray-100 hover:border-brand-yellow/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brand-yellow/10 text-brand-yellow flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-yellow transition-colors" data-i18n="srv_3_title">Mantenimiento Preventivo</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed" data-i18n="srv_3_desc">
+                                Cambio completo de aceite de motor y filtros (aceite, aire y cabina). Cambio de bujías, lavado estético de motor e hidratación profunda de plásticos.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-200/50 flex items-center justify-between text-xs text-gray-500 font-bold">
+                            <span data-i18n="srv_tag_life">Mayor Vida Útil</span>
+                            <span class="text-brand-yellow">Tune-up</span>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 4: Electromecánica de Rescate -->
+                    <div class="bg-brand-light p-8 rounded-2xl border border-gray-100 hover:border-brand-yellow/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brand-yellow/10 text-brand-yellow flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-yellow transition-colors" data-i18n="srv_4_title">Electromecánica de Rescate</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed" data-i18n="srv_4_desc">
+                                Solución rápida a problemas de encendido: diagnóstico y cambio de alternador, motores de arranque, bobinas (coil) de ignición y corrección de fusibles en cortocircuito.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-200/50 flex items-center justify-between text-xs text-gray-500 font-bold">
+                            <span data-i18n="srv_tag_rescue">Rescate Express</span>
+                            <span class="text-brand-yellow">12V Power</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE TRANSPARENCIA (Garantía y Costos) -->
+        <section id="garantia" class="py-20 bg-brand-charcoal text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-tr from-brand-charcoal via-brand-charcoal/90 to-brand-slate opacity-60"></div>
+            
+            <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+                <!-- Highlight Shield icon -->
+                <div class="w-20 h-20 bg-brand-yellow/10 text-brand-yellow rounded-full border border-brand-yellow/30 flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" data-i18n="trans_title">Nuestra Política de Transparencia</h2>
+                
+                <div class="mt-10 bg-gray-900/80 border border-gray-800 p-8 sm:p-12 rounded-3xl max-w-4xl mx-auto shadow-2xl">
+                    <div class="text-5xl font-black text-brand-yellow mb-6">$35 USD</div>
+                    
+                    <p class="text-xl sm:text-2xl font-semibold mb-6 leading-normal" data-i18n="trans_banner">
+                        "La revisión y visita técnica a domicilio tiene un costo base de $35. Si realizas la reparación con nosotros, la revisión es totalmente GRATIS."
+                    </p>
+                    
+                    <div class="h-px bg-gray-800 my-8"></div>
+                    
+                    <!-- Bullet points of terms -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left text-sm text-gray-300">
+                        <div class="flex items-start gap-3">
+                            <span class="text-brand-yellow flex-shrink-0 mt-1">✓</span>
+                            <span data-i18n="trans_p1">Si se realiza el trabajo, solo abonas el costo del trabajo de reparación o mantenimiento realizado.</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-brand-yellow flex-shrink-0 mt-1">✓</span>
+                            <span data-i18n="trans_p2">Diagnóstico inicial transparente sin sorpresas ni cobros fantasmas bajo la firma de Servimotriz PTY.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-gray-400 text-sm font-medium" data-i18n="trans_disclaimer">
+                    * Cobertura estándar en Arraiján, Panamá Oeste y Ciudad de Panamá hasta Don Bosco, Las Acacias y Los Andes.
+                </div>
+            </div>
+        </section>
+
+        <!-- COTIZADOR MULTIPASOS (Conversion Engine "Mobile-First") -->
+        <section id="cotizador" class="py-20 sm:py-28 bg-brand-light">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-10">
+                    <span class="text-xs font-bold tracking-wider text-brand-yellow uppercase" data-i18n="wizard_sub">Ahorra Tiempo y Dinero</span>
+                    <h2 class="text-3xl font-black text-brand-charcoal mt-1 tracking-tight" data-i18n="wizard_title">Cotizador de Mecánica Móvil Express</h2>
+                    <p class="text-gray-600 text-sm mt-2" data-i18n="wizard_desc">Completa los 3 sencillos pasos y te enviaremos una estimación directa a tu celular.</p>
+                </div>
+
+                <!-- Wizard Container -->
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-200/60 p-6 sm:p-10 relative overflow-hidden">
+                    
+                    <!-- Progress Bar Header -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
+                            <span id="wizardStepLabel" data-i18n="wizard_step_1">Paso 1 de 3: Datos del Vehículo</span>
+                            <span id="wizardProgressPct">33%</span>
+                        </div>
+                        <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div id="wizardProgressBar" class="h-full bg-brand-yellow transition-all duration-300" style="width: 33.33%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- ERROR MESSAGE BOX (Instead of browser alerts) -->
+                    <div id="errorMessage" class="hidden mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl flex items-center gap-2">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                        <span id="errorText" class="text-sm font-semibold">Por favor completa todos los campos del formulario.</span>
+                    </div>
+
+                    <form id="wizardForm" onsubmit="event.preventDefault();">
+                        
+                        <!-- STEP 1: Datos del Vehículo -->
+                        <div id="step1" class="space-y-6">
+                            <h3 class="text-lg font-bold text-brand-charcoal border-b border-gray-100 pb-2 flex items-center gap-2">
+                                <span class="bg-brand-yellow/10 text-brand-yellow w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span>
+                                <span data-i18n="wiz_s1_header">Identificación del Auto</span>
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex flex-col">
+                                    <label for="carBrand" class="text-sm font-bold text-gray-700 mb-1" data-i18n="wiz_brand_lbl">Marca</label>
+                                    <input type="text" id="carBrand" placeholder="Toyota, Hyundai, Kia..." class="border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow transition-all">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="carModel" class="text-sm font-bold text-gray-700 mb-1" data-i18n="wiz_model_lbl">Modelo</label>
+                                    <input type="text" id="carModel" placeholder="Hilux, Elantra, Picanto..." class="border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow transition-all">
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <label for="carYear" class="text-sm font-bold text-gray-700 mb-1" data-i18n="wiz_year_lbl">Año del Vehículo</label>
+                                <input type="number" id="carYear" placeholder="2018" min="1980" max="2027" class="border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow transition-all">
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Problema que presenta -->
+                        <div id="step2" class="hidden space-y-6">
+                            <h3 class="text-lg font-bold text-brand-charcoal border-b border-gray-100 pb-2 flex items-center gap-2">
+                                <span class="bg-brand-yellow/10 text-brand-yellow w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span>
+                                <span data-i18n="wiz_s2_header">¿Qué problema presenta?</span>
+                            </h3>
+
+                            <!-- Selectable Quick Buttons -->
+                            <div class="space-y-3">
+                                <label class="text-sm font-bold text-gray-500 block" data-i18n="wiz_s2_select">Selecciona una opción predefinida:</label>
+                                <div class="grid grid-cols-1 gap-2.5">
+                                    <button type="button" onclick="selectProblem(this, 'El carro se me está recalentando')" class="problem-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-brand-yellow/30 bg-brand-light text-sm font-semibold text-brand-charcoal transition-all flex items-center justify-between">
+                                        <span data-i18n="prob_1">El carro se me está recalentando</span>
+                                        <span class="text-gray-400">🔥</span>
+                                    </button>
+                                    <button type="button" onclick="selectProblem(this, 'Se le bajó la batería / No enciende')" class="problem-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-brand-yellow/30 bg-brand-light text-sm font-semibold text-brand-charcoal transition-all flex items-center justify-between">
+                                        <span data-i18n="prob_2">Se le bajó la batería / No enciende</span>
+                                        <span class="text-gray-400">⚡</span>
+                                    </button>
+                                    <button type="button" onclick="selectProblem(this, 'Tiene una luz prendida en el tablero (Check Engine)')" class="problem-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-brand-yellow/30 bg-brand-light text-sm font-semibold text-brand-charcoal transition-all flex items-center justify-between">
+                                        <span data-i18n="prob_3">Tiene una luz prendida en el tablero (Check Engine)</span>
+                                        <span class="text-gray-400">⚠️</span>
+                                    </button>
+                                    <button type="button" onclick="selectProblem(this, 'Siento un chillido / Problema con los frenos')" class="problem-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-brand-yellow/30 bg-brand-light text-sm font-semibold text-brand-charcoal transition-all flex items-center justify-between">
+                                        <span data-i18n="prob_4">Siento un chillido / Problema con los frenos</span>
+                                        <span class="text-gray-400">🛑</span>
+                                    </button>
+                                    <button type="button" onclick="selectProblem(this, 'Falla eléctrica (Alternador, arranque, corto)')" class="problem-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-brand-yellow/30 bg-brand-light text-sm font-semibold text-brand-charcoal transition-all flex items-center justify-between">
+                                        <span data-i18n="prob_5">Falla eléctrica (Alternador, arranque, corto)</span>
+                                        <span class="text-gray-400">🔌</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col mt-4">
+                                <label for="customProblem" class="text-sm font-bold text-gray-700 mb-1" data-i18n="wiz_custom_prob">Daño estimado u otro problema (Opcional)</label>
+                                <textarea id="customProblem" rows="3" placeholder="Describe brevemente lo que sientes en tu auto..." class="border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow transition-all"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Ubicación con Mapa Leaflet Integrado -->
+                        <div id="step3" class="hidden space-y-6">
+                            <h3 class="text-lg font-bold text-brand-charcoal border-b border-gray-100 pb-2 flex items-center gap-2">
+                                <span class="bg-brand-yellow/10 text-brand-yellow w-7 h-7 rounded-full flex items-center justify-center text-xs">3</span>
+                                <span data-i18n="wiz_s3_header">Ubicación exacta</span>
+                            </h3>
+
+                            <div class="flex flex-col">
+                                <label for="userZone" class="text-sm font-bold text-gray-700 mb-1" data-i18n="wiz_zone_lbl">Indica tu zona general</label>
+                                <input type="text" id="userZone" placeholder="Ej. Arraiján, La Chorrera, Los Andes, Las Acacias, Don Bosco" class="border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow transition-all">
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider" data-i18n="wiz_map_lbl">Mapa de Cobertura en Tiempo Real</label>
+                                    <button type="button" onclick="getLocation()" class="text-xs font-bold text-brand-yellow hover:text-brand-darkyellow flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <span data-i18n="wiz_btn_gps">Mostrar mi ubicación</span>
+                                    </button>
+                                </div>
+                                <!-- Leaflet Map Div Container -->
+                                <div id="map" class="h-60 w-full rounded-2xl border border-gray-200 z-10 shadow-inner"></div>
+                            </div>
+                        </div>
+
+                        <!-- NAVIGATION BUTTONS -->
+                        <div class="mt-8 flex items-center justify-between gap-4 pt-6 border-t border-gray-100">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="hidden bg-gray-100 hover:bg-gray-200 text-brand-charcoal font-bold px-6 py-3 rounded-xl transition-all" data-i18n="btn_wiz_prev">
+                                Atrás
+                            </button>
+                            
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)" class="w-full bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-black px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md shadow-brand-yellow/10">
+                                <span id="nextBtnText" data-i18n="btn_wiz_next">Siguiente Paso</span>
+                                <svg id="nextBtnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER & SEO MAPS LINK -->
+    <footer class="bg-brand-charcoal text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-gray-800">
+                
+                <!-- Business Identity Column -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="bg-brand-yellow text-brand-charcoal p-2 rounded-lg font-black flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            </svg>
+                        </div>
+                        <span class="font-extrabold text-lg text-white tracking-wider">SERVIMOTRIZ PTY</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
+                        Expertos electromecánicos certificados. Brindamos servicios profesionales de mantenimiento y reparaciones móviles en Panamá con transparencia técnica.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-brand-yellow hover:text-brand-charcoal flex items-center justify-center text-white transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 .35c3.22.42 5.8 2.76 6.55 5.8h-6.55V2.35zM11 2.35v5.8H4.45c.75-3.04 3.33-5.38 6.55-5.8zM4.09 9.15h6.91v5.7h-7.6c-.14-.5-.21-1.03-.21-1.55 0-1.47.53-2.88 1.45-3.95zm.36 7.2h6.55v5.3c-3.22-.42-5.8-2.76-6.55-5.8zm7.55 5.3v-5.3h6.55c-.75 3.04-3.33 5.38-6.55 5.8zm7.6-7.35h-7.6v-5.7h6.91c.92 1.07 1.45 2.48 1.45 3.95 0 .52-.07 1.05-.21 1.55z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cobertura y SEO Links -->
+                <div class="md:col-span-4 space-y-4">
+                    <h4 class="text-sm font-bold tracking-widest text-brand-yellow uppercase" data-i18n="footer_coverage">Zonas de Cobertura</h4>
+                    <ul class="text-gray-400 text-sm space-y-2.5">
+                        <li class="flex items-center gap-2">
+                            <span class="text-brand-yellow">•</span> Arraiján (Panamá Oeste) - Base Operativa
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brand-yellow">•</span> La Chorrera
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brand-yellow">•</span> Los Andes & San Miguelito
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brand-yellow">•</span> Las Acacias, Don Bosco & Juan Díaz
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact & API Direct -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-sm font-bold tracking-widest text-brand-yellow uppercase" data-i18n="footer_contact">Contacto Rápido</h4>
+                    <div class="text-sm text-gray-400 space-y-2">
+                        <p class="flex items-center gap-2 text-white font-semibold">
+                            <span>📞</span> +507 6477-3172
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <span>📧</span> soporte@servimotrizpty.com
+                        </p>
+                        <p data-i18n="footer_time_avail">Atención: Lunes a Domingo 24 Horas</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Legals -->
+            <div class="pt-8 text-center text-xs text-gray-500 font-medium flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>© 2026 Servimotriz PTY. Todos los derechos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-brand-yellow transition-colors" data-i18n="footer_terms">Términos de Servicio</a>
+                    <a href="#" class="hover:text-brand-yellow transition-colors" data-i18n="footer_privacy">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC INTEGRATION (i18n & Multi-Step Engine) -->
+    <script>
+        // Multi-Language Object (Spanish, English, Chinese Simple)
+        const translations = {
+            es: {
+                nav_services: "Servicios",
+                nav_pricing: "Garantía y Costos",
+                nav_wizard: "Cotizar Ahora",
+                btn_header_cta: "Solicitar Auxilio",
+                hero_badge: "Servicio de Auxilio Vial y Mecánica Móvil 24/7",
+                hero_title_1: "Servimotriz PTY:",
+                hero_title_2: "El taller que va contigo",
+                hero_desc: "¿Varado o sin tiempo? Ofrecemos el mejor servicio de mecánico a domicilio, electromecánica móvil y escáner automotriz en Arraiján, Panamá Oeste y Ciudad de Panamá (con cobertura especial hasta Don Bosco, Las Acacias y Los Andes).",
+                stat_mobile: "Móvil a Domicilio",
+                stat_time: "Tiempo de Arribo Promedio",
+                stat_repairs: "Autos Reparados",
+                hero_cta_main: "Cotizar mi Daño",
+                hero_cta_sec: "Llamar Mecánico Directo",
+                quick_form_title: "Contacto Express 24/7",
+                quick_form_subtitle: "¿Necesitas ayuda urgente? Déjanos tus datos y te responderemos de inmediato por WhatsApp.",
+                quick_name_lbl: "Tu Nombre",
+                quick_phone_lbl: "Teléfono / Celular",
+                quick_msg_lbl: "¿Qué le pasa a tu auto?",
+                quick_btn_send: "Enviar Consulta Rápida",
+                error_quick_fields: "Por favor, completa todos los campos requeridos.",
+                services_sub: "Soluciones Especializadas a tu Alcance",
+                services_title: "Nuestros Servicios de Mecánica Móvil",
+                services_desc: "No necesitas grúas ni largas esperas en un taller tradicional. Resolvemos cualquier avería de tu vehículo directamente en tu casa, oficina o en plena carretera.",
+                srv_1_title: "Diagnóstico Computarizado (Escáner)",
+                srv_1_desc: "Detección precisa de fallas con escáner avanzado OBD-II. Interpretación exacta de códigos de error, fugas de aire, fallas de sensores y cableado defectuoso.",
+                srv_tag_quick: "Asistencia Inmediata",
+                srv_2_title: "Sistema de Frenos",
+                srv_2_desc: "Cambio de tacos (pastillas) de freno, cambio de bandas, ajuste preciso del freno de mano y purgado para asegurar tu máxima capacidad de detención y seguridad.",
+                srv_tag_safety: "Seguridad Activa",
+                srv_3_title: "Mantenimiento Preventivo",
+                srv_3_desc: "Cambio completo de aceite de motor y filtros (aceite, aire y cabina). Cambio de bujías, lavado estético de motor e hidratación profunda de plásticos.",
+                srv_tag_life: "Mayor Vida Útil",
+                srv_4_title: "Electromecánica de Rescate",
+                srv_4_desc: "Solución rápida a problemas de encendido: diagnóstico y cambio de alternador, motores de arranque, bobinas (coil) de ignición y corrección de fusibles en cortocircuito.",
+                srv_tag_rescue: "Rescate Express",
+                trans_title: "Nuestra Política de Transparencia",
+                trans_banner: "La revisión y visita técnica a domicilio tiene un costo base de $35. Si realizas la reparación con nosotros, la revisión es totalmente GRATIS.",
+                trans_p1: "Si se realiza el trabajo, solo abonas el costo del trabajo de reparación o mantenimiento realizado.",
+                trans_p2: "Diagnóstico inicial transparente sin sorpresas ni cobros fantasmas bajo la firma de Servimotriz PTY.",
+                trans_disclaimer: "* Cobertura estándar en Arraiján, Panamá Oeste y Ciudad de Panamá hasta Don Bosco, Las Acacias y Los Andes.",
+                wizard_sub: "Ahorra Tiempo y Dinero",
+                wizard_title: "Cotizador de Mecánica Móvil Express",
+                wizard_desc: "Completa los 3 sencillos pasos y te enviaremos una estimación directa a tu celular.",
+                wizard_step_1: "Paso 1 de 3: Datos del Vehículo",
+                wizard_step_2: "Paso 2 de 3: ¿Qué problema presenta?",
+                wizard_step_3: "Paso 3 de 3: Ubicación exacta",
+                wiz_s1_header: "Identificación del Auto",
+                wiz_brand_lbl: "Marca",
+                wiz_model_lbl: "Modelo",
+                wiz_year_lbl: "Año del Vehículo",
+                wiz_s2_header: "¿Qué problema presenta?",
+                wiz_s2_select: "Selecciona una opción predefinida:",
+                wiz_custom_prob: "Daño estimado u otro problema (Opcional)",
+                wiz_s3_header: "Ubicación exacta",
+                wiz_zone_lbl: "Indica tu zona general",
+                wiz_map_lbl: "Mapa de Cobertura en Tiempo Real",
+                wiz_btn_gps: "Mostrar mi ubicación",
+                btn_wiz_prev: "Atrás",
+                btn_wiz_next: "Siguiente Paso",
+                btn_wiz_finish: "Solicitar por WhatsApp 🛠️",
+                footer_desc: "Expertos electromecánicos certificados. Brindamos servicios profesionales de mantenimiento y reparaciones móviles en Panamá con transparencia técnica.",
+                footer_coverage: "Zonas de Cobertura",
+                footer_contact: "Contacto Rápido",
+                footer_time_avail: "Atención: Lunes a Domingo 24 Horas",
+                footer_terms: "Términos de Servicio",
+                footer_privacy: "Política de Privacidad",
+                error_step1: "Por favor, completa Marca, Modelo y un Año válido del auto antes de avanzar.",
+                error_step2: "Por favor, selecciona el problema de tu vehículo o descríbelo.",
+                error_step3: "Indica tu zona general para que el mecánico pueda llegar a tu auxilio.",
+                prob_1: "El carro se me está recalentando",
+                prob_2: "Se le bajó la batería / No enciende",
+                prob_3: "Tiene una luz prendida en el tablero (Check Engine)",
+                prob_4: "Siento un chillido / Problema con los frenos",
+                prob_5: "Falla eléctrica (Alternador, arranque, corto)"
+            },
+            en: {
+                nav_services: "Services",
+                nav_pricing: "Warranty & Cost",
+                nav_wizard: "Quote Now",
+                btn_header_cta: "Request Assistance",
+                hero_badge: "24/7 Roadside Assistance & Mobile Mechanic",
+                hero_title_1: "Servimotriz PTY:",
+                hero_title_2: "The workshop that goes with you",
+                hero_desc: "Stranded or out of time? We offer the best on-site mechanic service, mobile electromechanics, and computer scan diagnostic in Arraijan, Panama Oeste, and Panama City.",
+                stat_mobile: "100% Mobile Service",
+                stat_time: "Avg. Arrival Under 45m",
+                stat_repairs: "Cars Repaired",
+                hero_cta_main: "Get a Mobile Quote",
+                hero_cta_sec: "Call Mechanic Directly",
+                quick_form_title: "24/7 Express Contact",
+                quick_form_subtitle: "Need urgent help? Leave your details and we will reply immediately via WhatsApp.",
+                quick_name_lbl: "Your Name",
+                quick_phone_lbl: "Phone Number",
+                quick_msg_lbl: "What's wrong with your car?",
+                quick_btn_send: "Send Quick Inquiry",
+                error_quick_fields: "Please fill in all required fields.",
+                services_sub: "Specialized Solutions at Hand",
+                services_title: "Our Mobile Mechanics Services",
+                services_desc: "No tow trucks, no long waits at traditional workshops. We solve any vehicle issues directly at your home, office, or on the road.",
+                srv_1_title: "Computer Diagnostic (Scanner)",
+                srv_1_desc: "Accurate troubleshooting using advanced OBD-II scanner. Precise interpretation of error codes, air leaks, sensor, and wiring faults.",
+                srv_tag_quick: "Immediate Support",
+                srv_2_title: "Brake Systems",
+                srv_2_desc: "Brake pads replacement, shoe adjustments, handbrake setting, and fluid bleeding to ensure total safety.",
+                srv_tag_safety: "Active Safety",
+                srv_3_title: "Preventive Maintenance",
+                srv_3_desc: "Engine oil change, filter renewals (oil, air, cabin). Spark plugs swap, engine detailing, and plastic restoration.",
+                srv_tag_life: "Longer Engine Life",
+                srv_4_title: "Electromechanics Rescue",
+                srv_4_desc: "Swift ignition diagnostics: alternator, starter motor, ignition coils replacement, and fixing wiring short circuits.",
+                srv_tag_rescue: "Express Rescue",
+                trans_title: "Our Transparency Policy",
+                trans_banner: "The base cost for our inspection and mobile visit is $35. If you do the repair with us, the inspection is completely FREE.",
+                trans_p1: "If the work is carried out, you only pay the exact cost of the repair/maintenance performed.",
+                trans_p2: "Clear diagnostic without hidden fees or surprise costs under Servimotriz PTY seal.",
+                trans_disclaimer: "* Standard coverage in Arraijan, Panama Oeste, and Panama City areas.",
+                wizard_sub: "Save Time and Money",
+                wizard_title: "Express Mobile Mechanic Quote",
+                wizard_desc: "Complete 3 easy steps and we will send a direct estimate to your phone.",
+                wizard_step_1: "Step 1 of 3: Vehicle Data",
+                wizard_step_2: "Step 2 of 3: Describe the Problem",
+                wizard_step_3: "Step 3 of 3: Exact Location",
+                wiz_s1_header: "Car Identification",
+                wiz_brand_lbl: "Brand",
+                wiz_model_lbl: "Model",
+                wiz_year_lbl: "Year of the Car",
+                wiz_s2_header: "What seems to be the problem?",
+                wiz_s2_select: "Choose a predefined issue:",
+                wiz_custom_prob: "Estimated damage or other notes (Optional)",
+                wiz_s3_header: "Exact Location",
+                wiz_zone_lbl: "Indicate your general area",
+                wiz_map_lbl: "Real-time Coverage Map",
+                wiz_btn_gps: "Show My Location",
+                btn_wiz_prev: "Back",
+                btn_wiz_next: "Next Step",
+                btn_wiz_finish: "Request via WhatsApp 🛠️",
+                footer_desc: "Certified electromechanic specialists. Delivering high-quality mobile car repairs in Panama with transparent pricing.",
+                footer_coverage: "Coverage Area",
+                footer_contact: "Quick Contact",
+                footer_time_avail: "Hours: Monday to Sunday 24/7",
+                footer_terms: "Terms of Service",
+                footer_privacy: "Privacy Policy",
+                error_step1: "Please complete Brand, Model, and a valid Year before proceeding.",
+                error_step2: "Please select your car's problem or write it in the text area.",
+                error_step3: "Please specify your area so the mechanic can find you.",
+                prob_1: "Car is overheating",
+                prob_2: "Battery is dead / Car won't start",
+                prob_3: "Check Engine light is on",
+                prob_4: "Brakes are squeaking / Brake problem",
+                prob_5: "Electrical issue (Alternator, Starter, Short)"
+            },
+            zh: {
+                nav_services: "服务项目",
+                nav_pricing: "保修与费用",
+                nav_wizard: "立即估价",
+                btn_header_cta: "请求救援",
+                hero_badge: "24/7 全天候路边救援与移动机械师",
+                hero_title_1: "Servimotriz PTY:",
+                hero_title_2: "伴您同行的汽车修理厂",
+                hero_desc: "车子抛锚或没有时间？我们在阿拉伊汉、巴拿马西部和巴拿马城为您提供最优质的上门机械师服务、移动机电服务以及专业电脑诊断检测。",
+                stat_mobile: "100% 上门移动服务",
+                stat_time: "平均 45 分钟内抵达",
+                stat_repairs: "已修复汽车",
+                hero_cta_main: "获取移动估价",
+                hero_cta_sec: "直接联系机械师",
+                quick_form_title: "24/7 极速联络",
+                quick_form_subtitle: "需要紧急帮助？留下您的信息，我们将立即通过 WhatsApp 与您联系。",
+                quick_name_lbl: "您的名字",
+                quick_phone_lbl: "电话号码",
+                quick_msg_lbl: "您的爱车遇到什么问题？",
+                quick_btn_send: "发送极速咨询",
+                error_quick_fields: "请填写所有必填字段。",
+                services_sub: "专业高效的解决方案",
+                services_title: "我们的移动汽修服务",
+                services_desc: "无需拖车，无需在传统修理厂漫长等待。我们在您的家中、办公室或路边直接解决所有车辆故障。",
+                srv_1_title: "计算机诊断 (电脑检测)",
+                srv_1_desc: "使用先进的 OBD-II 解码仪进行故障定位。精准解读错误代码、漏气、传感器和线路故障。",
+                srv_tag_quick: "即时响应支持",
+                srv_2_title: "刹车系统维护",
+                srv_2_desc: "更换刹车片、刹车蹄、精细调节手刹及排气排空，确保最大行车安全。",
+                srv_tag_safety: "主动安全护航",
+                srv_3_title: "定期预防性保养",
+                srv_3_desc: "完整更换发动机机油 and 三滤。更换火花塞、发动机外部清洗及塑料饰件保养。",
+                srv_tag_life: "延长发动机寿命",
+                srv_4_title: "电力救援与机电检修",
+                srv_4_desc: "快速解决启动故障：更换发电机、起动机、点火线圈并排除线路短路故障。",
+                srv_tag_rescue: "极速救援服务",
+                trans_title: "我们的透明费用政策",
+                trans_banner: "上门检查及服务的基本费用为 $35。如果您当场选择由我们进行维修，我们将完全免除此项检查费。",
+                trans_p1: "只要当场进行维修工作，您只需支付实际维修或保养的费用。",
+                trans_p2: "拒绝虚假高价，公开透明的专业诊断方案由 Servimotriz PTY 承诺。",
+                trans_disclaimer: "* 阿拉伊汉、巴拿马西部及巴拿马城等区域常规覆盖。",
+                wizard_sub: "省时、省心、省钱",
+                wizard_title: "极速移动汽修估价",
+                wizard_desc: "仅需简单 3 步，即可直接在手机上收到报价预算。",
+                wizard_step_1: "步骤 1/3: 车辆基本信息",
+                wizard_step_2: "步骤 2/3: 描述车辆故障",
+                wizard_step_3: "步骤 3/3: 您的确切位置",
+                wiz_s1_header: "车辆信息登记",
+                wiz_brand_lbl: "汽车品牌",
+                wiz_model_lbl: "汽车车型",
+                wiz_year_lbl: "出厂年份",
+                wiz_s2_header: "车辆出现了什么故障？",
+                wiz_s2_select: "点击快速选择常见问题：",
+                wiz_custom_prob: "预计损坏情况或其他说明（选填）",
+                wiz_s3_header: "确切地点",
+                wiz_zone_lbl: "写下您的大致区域",
+                wiz_map_lbl: "实时服务范围地图",
+                wiz_btn_gps: "定位我的位置",
+                btn_wiz_prev: "返回",
+                btn_wiz_next: "下一步",
+                btn_wiz_finish: "通过 WhatsApp 提交请求 🛠️",
+                footer_desc: "持证机电专家团队。在巴拿马提供高水准的上门汽修与维护，收费清晰透明。",
+                footer_coverage: "服务覆盖区域",
+                footer_contact: "快速联系方式",
+                footer_time_avail: "服务时间：周一至周日 24小时",
+                footer_terms: "服务条款",
+                footer_privacy: "隐私政策",
+                error_step1: "在继续之前，请完整填写汽车品牌、车型和有效的年份。",
+                error_step2: "请选择汽车遇到的故障或者在文本框中进行描述。",
+                error_step3: "请输入您当前所在的区域以便机械师迅速出发救援。",
+                prob_1: "发动机正在过热",
+                prob_2: "电瓶没电 / 车子无法启动",
+                prob_3: "发动机故障灯亮起",
+                prob_4: "刹车有异响 / 刹车问题",
+                prob_5: "电路故障 (发电机、起动机、短路)"
+            }
+        };
+
+        let currentLang = 'es';
+
+        // Translate the complete page dynamically using data-i18n tags
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Handle placeholders manually if inputs exist
+            const carBrandInput = document.getElementById('carBrand');
+            const carModelInput = document.getElementById('carModel');
+            const carYearInput = document.getElementById('carYear');
+            const customProblemInput = document.getElementById('customProblem');
+            const userZoneInput = document.getElementById('userZone');
+            const quickNameInput = document.getElementById('quickName');
+            const quickPhoneInput = document.getElementById('quickPhone');
+            const quickMessageInput = document.getElementById('quickMessage');
+
+            if (lang === 'en') {
+                carBrandInput.placeholder = "Toyota, Hyundai, Kia...";
+                carModelInput.placeholder = "Hilux, Elantra, Picanto...";
+                carYearInput.placeholder = "2018";
+                customProblemInput.placeholder = "Briefly describe what you feel in your car...";
+                userZoneInput.placeholder = "e.g. Arraijan, La Chorrera, Los Andes...";
+                quickNameInput.placeholder = "e.g. John Doe";
+                quickPhoneInput.placeholder = "e.g. +507 6000-0000";
+                quickMessageInput.placeholder = "My car won't start...";
+            } else if (lang === 'zh') {
+                carBrandInput.placeholder = "丰田，现代，起亚...";
+                carModelInput.placeholder = "海拉克斯，伊兰特...";
+                carYearInput.placeholder = "2018";
+                customProblemInput.placeholder = "简要描述您车子的不正常表现...";
+                userZoneInput.placeholder = "例如: 阿拉伊汉，拉乔雷拉...";
+                quickNameInput.placeholder = "例如: 张三";
+                quickPhoneInput.placeholder = "例如: +507 6000-0000";
+                quickMessageInput.placeholder = "我的车发动不了...";
+            } else {
+                carBrandInput.placeholder = "Toyota, Hyundai, Kia...";
+                carModelInput.placeholder = "Hilux, Elantra, Picanto...";
+                carYearInput.placeholder = "2018";
+                customProblemInput.placeholder = "Describe brevemente lo que sientes en tu auto...";
+                userZoneInput.placeholder = "Ej. Arraiján, La Chorrera, Los Andes...";
+                quickNameInput.placeholder = "Ej. Juan Pérez";
+                quickPhoneInput.placeholder = "Ej. +507 6000-0000";
+                quickMessageInput.placeholder = "Mi carro no enciende...";
+            }
+
+            // Sync step label & wizard updates
+            updateStepUI();
+        }
+
+        // --- QUICK FORM SYSTEM ---
+        function sendQuickForm() {
+            const name = document.getElementById('quickName').value.trim();
+            const phone = document.getElementById('quickPhone').value.trim();
+            const message = document.getElementById('quickMessage').value.trim();
+            const errorDiv = document.getElementById('quickFormError');
+            const errorText = document.getElementById('quickFormErrorText');
+
+            errorDiv.classList.add('hidden');
+
+            if (!name || !phone || !message) {
+                errorText.textContent = translations[currentLang].error_quick_fields;
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Quick Form Message Builder
+            const textHeader = "⚡ *CONSULTA EXPRESS - SERVIMOTRIZ PTY* ⚡";
+            const textName = `• *Nombre:* ${name}`;
+            const textPhone = `• *Contacto:* ${phone}`;
+            const textProblem = `• *Problema:* ${message}`;
+            
+            const fullMsg = `${textHeader}\n\n${textName}\n${textPhone}\n${textProblem}`;
+            const encodedMsg = encodeURIComponent(fullMsg);
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=50764773172&text=${encodedMsg}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        // --- WIZARD SYSTEM STATE & FUNCTIONS ---
+        let currentStep = 1;
+        let selectedProblemText = "";
+        let mapInstance = null;
+        let mainMarker = null;
+        let userMarker = null;
+
+        function updateStepUI() {
+            // Hide all steps
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+
+            // Show current
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+
+            // Update Header progress
+            const pct = currentStep === 1 ? '33.33%' : currentStep === 2 ? '66.66%' : '100%';
+            document.getElementById('wizardProgressBar').style.width = pct;
+            document.getElementById('wizardProgressPct').textContent = `${Math.round(parseFloat(pct))}%`;
+            
+            const stepLabel = document.getElementById('wizardStepLabel');
+            stepLabel.textContent = translations[currentLang][`wizard_step_${currentStep}`];
+
+            // Buttons styling
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const nextBtnText = document.getElementById('nextBtnText');
+            const nextBtnIcon = document.getElementById('nextBtnIcon');
+
+            if (currentStep === 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.className = "w-full bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-black px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2";
+                nextBtnText.textContent = translations[currentLang].btn_wiz_next;
+                nextBtnIcon.classList.remove('hidden');
+            } else if (currentStep === 2) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.className = "w-1/2 bg-brand-yellow hover:bg-brand-darkyellow text-brand-charcoal font-black px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2";
+                nextBtnText.textContent = translations[currentLang].btn_wiz_next;
+                nextBtnIcon.classList.remove('hidden');
+            } else if (currentStep === 3) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.className = "w-1/2 bg-green-500 hover:bg-green-600 text-white font-black px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-500/20";
+                nextBtnText.textContent = translations[currentLang].btn_wiz_finish;
+                nextBtnIcon.classList.add('hidden');
+
+                // Initialize map if it's step 3 and map isn't running
+                setTimeout(() => {
+                    initMap();
+                }, 100);
+            }
+        }
+
+        // Next/Prev navigation
+        function nextPrev(n) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            errorDiv.classList.add('hidden');
+
+            if (n === 1) {
+                // Validation before going forward
+                if (currentStep === 1) {
+                    const brand = document.getElementById('carBrand').value.trim();
+                    const model = document.getElementById('carModel').value.trim();
+                    const year = document.getElementById('carYear').value.trim();
+                    
+                    if (!brand || !model || !year || isNaN(year) || parseInt(year) < 1900) {
+                        errorText.textContent = translations[currentLang].error_step1;
+                        errorDiv.classList.remove('hidden');
+                        return;
+                    }
+                } else if (currentStep === 2) {
+                    const customProblem = document.getElementById('customProblem').value.trim();
+                    if (!selectedProblemText && !customProblem) {
+                        errorText.textContent = translations[currentLang].error_step2;
+                        errorDiv.classList.remove('hidden');
+                        return;
+                    }
+                } else if (currentStep === 3) {
+                    // Send WhatsApp directly
+                    sendToWhatsApp();
+                    return;
+                }
+            }
+
+            currentStep += n;
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > 3) currentStep = 3;
+
+            updateStepUI();
+        }
+
+        // Selection of predefined problem
+        function selectProblem(element, problemString) {
+            // Remove active classes from all problem buttons
+            const buttons = document.querySelectorAll('.problem-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-brand-yellow', 'bg-brand-yellow/10');
+                btn.classList.add('border-gray-100', 'bg-brand-light');
+            });
+
+            // Select
+            selectedProblemText = problemString;
+            element.classList.remove('border-gray-100', 'bg-brand-light');
+            element.classList.add('border-brand-yellow', 'bg-brand-yellow/10');
+        }
+
+        // LEAFLET MAP & GPS UTILITY
+        function initMap() {
+            if (mapInstance !== null) {
+                // Leaflet requires invalidating size if container size changed dynamically or was hidden
+                mapInstance.invalidateSize();
+                return;
+            }
+
+            // Operational base coordinates: Arraijan, Panama
+            const baseLat = 8.9472;
+            const baseLng = -79.6558;
+
+            // Instantiation
+            mapInstance = L.map('map', {
+                center: [baseLat, baseLng],
+                zoom: 12,
+                scrollWheelZoom: false
+            });
+
+            // CartoDB / OSM tiles
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(mapInstance);
+
+            // Adding Base marker
+            mainMarker = L.marker([baseLat, baseLng]).addTo(mapInstance)
+                .bindPopup("<b>Servimotriz PTY</b><br>Base Arraiján (Panamá Oeste)")
+                .openPopup();
+        }
+
+        // Geolocation hook
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+
+                        // Fly map to user location
+                        if (mapInstance) {
+                            mapInstance.setView([lat, lng], 15);
+
+                            // Add user pin
+                            if (userMarker) {
+                                userMarker.setLatLng([lat, lng]);
+                            } else {
+                                userMarker = L.marker([lat, lng], {
+                                    icon: L.icon({
+                                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                                        iconSize: [25, 41],
+                                        iconAnchor: [12, 41],
+                                        popupAnchor: [1, -34],
+                                        shadowSize: [41, 41]
+                                    })
+                                }).addTo(mapInstance);
+                            }
+
+                            userMarker.bindPopup("<b>Tu ubicación en tiempo real</b>").openPopup();
+                            
+                            // Autofill the userZone field for easier conversion
+                            const userZoneField = document.getElementById('userZone');
+                            if (!userZoneField.value.trim()) {
+                                userZoneField.value = `GPS: Lat ${lat.toFixed(4)}, Lng ${lng.toFixed(4)}`;
+                            }
+                        }
+                    },
+                    (error) => {
+                        console.error("Error al obtener geolocalización: ", error);
+                        // Standard fallback notifications handled directly inside the UI (no alert)
+                        const errorDiv = document.getElementById('errorMessage');
+                        const errorText = document.getElementById('errorText');
+                        errorText.textContent = "No pudimos obtener tu GPS de manera automática. Por favor escribe tu ubicación manualmente.";
+                        errorDiv.classList.remove('hidden');
+                    },
+                    { enableHighAccuracy: true, timeout: 8000 }
+                );
+            } else {
+                const errorDiv = document.getElementById('errorMessage');
+                const errorText = document.getElementById('errorText');
+                errorText.textContent = "La geolocalización no es compatible con este navegador.";
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        // Compilation & WhatsApp Integration (No alert framework)
+        function sendToWhatsApp() {
+            const brand = document.getElementById('carBrand').value.trim();
+            const model = document.getElementById('carModel').value.trim();
+            const year = document.getElementById('carYear').value.trim();
+            const customProblem = document.getElementById('customProblem').value.trim();
+            const userZone = document.getElementById('userZone').value.trim();
+
+            if (!userZone) {
+                const errorDiv = document.getElementById('errorMessage');
+                const errorText = document.getElementById('errorText');
+                errorText.textContent = translations[currentLang].error_step3;
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Problem aggregation
+            let finalProblem = selectedProblemText;
+            if (customProblem) {
+                finalProblem = finalProblem ? `${finalProblem} (${customProblem})` : customProblem;
+            }
+
+            // WhatsApp Message Builder
+            const textHeader = "🛠️ *NUEVA SOLICITUD - SERVIMOTRIZ PTY* 🛠️";
+            const textCar = `• *Auto:* ${brand} ${model} ${year}`;
+            const textProblem = `• *Problema:* ${finalProblem}`;
+            const textLoc = `• *Ubicación:* ${userZone}`;
+            
+            const message = `${textHeader}\n\n${textCar}\n${textProblem}\n${textLoc}`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Core WhatsApp direct target
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=50764773172&text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        // Ensure i18n runs correct startup on DOM content load
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('es');
+            updateStepUI();
+        });
+    </script>
+</body>
+</html>
