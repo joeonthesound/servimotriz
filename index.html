@@ -1,1562 +1,1143 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Servimotriz PTY | Mecánico a Domicilio en Panamá</title>
-    <meta name="description" content="Mecánico y electromecánico a domicilio en Arraiján, Panamá Oeste y Ciudad de Panamá. Taller móvil con diagnóstico computarizado y garantía.">
-    
-    <!-- Tailwind CSS vía CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Font Awesome (iconos) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
-    <!-- Google Fonts (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "AutoRepair",
-      "name": "Servimotriz PTY",
-      "description": "Servicio de mecánico y electromecánico a domicilio y taller móvil en Arraiján, Panamá Oeste y Ciudad de Panamá.",
-      "telephone": "+50764773172",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Arraiján",
-        "addressCountry": "PA"
-      },
-      "areaServed": [
-        "Arraiján",
-        "La Chorrera",
-        "Los Andes",
-        "Las Acacias",
-        "Don Bosco",
-        "Panamá"
-      ],
-      "image": "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&auto=format&fit=crop",
-      "openingHours": "Mo-Su 07:00-20:00",
-      "paymentAccepted": "Efectivo, Yappy, Transferencia"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#111827" media="(prefers-color-scheme: light)">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="description" content="Mecánico a domicilio, electromecánico a domicilio y taller móvil en Arraiján, Panamá Oeste y Ciudad de Panamá. Diagnóstico, frenos, mantenimiento y auxilio vial.">
+  <meta name="keywords" content="mecánico a domicilio, electromecánico a domicilio, taller móvil, mecánico en Arraiján, electromecánico en Panamá Oeste, taller a domicilio, revisión a domicilio, auxilio vial, alternador, motor de arranque, cambio de tacos de freno">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PA">
+  <meta property="og:title" content="Servimotriz PTY | Mecánico a domicilio en Panamá">
+  <meta property="og:description" content="El taller que va contigo. Mecánica general, electromecánica y asistencia vial a domicilio.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Servimotriz PTY">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Servimotriz PTY | Mecánico a Domicilio y Electromecánico en Panamá</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04'
+            }
+          },
+          boxShadow: {
+            soft: '0 18px 45px rgba(15, 23, 42, .10)',
+            softDark: '0 18px 45px rgba(0, 0, 0, .45)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynu41ZK1ByzS5JT2r0Zq9c2WewKk=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+    :root { color-scheme: light; }
+    html.dark { color-scheme: dark; }
+    body { -webkit-font-smoothing: antialiased; }
+    .status-badge, .wizard-panel, .service-card, .problem-option, .bottom-tab, .theme-toggle-knob { transition: all .28s ease; }
+    .hero-grid {
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(250, 204, 21, .18), transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(234, 179, 8, .11), transparent 32%);
     }
-    </script>
-
-    <style>
-        /* ============================================================
-           SERVIMOTRIZ PTY - Editorial Style (Todo en uno)
-           ============================================================ */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ===== UTILITY ===== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== TIPOGRAFÍA EDITORIAL ===== */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 900;
-            color: #0a0a0a;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #dc2626, #ef4444);
-            border-radius: 4px;
-        }
-
-        .section-subtitle {
-            font-size: clamp(1rem, 1.2vw, 1.25rem);
-            color: #4b5563;
-            max-width: 640px;
-            margin: 0 auto 2.5rem;
-            text-align: center;
-        }
-
-        /* ===== BOTONES CON EFECTO PREMIUM ===== */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.875rem 2rem;
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(220, 38, 38, 0.35);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(220, 38, 38, 0.45);
-        }
-
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .btn-primary > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.875rem 2rem;
-            background: #1a1a1a;
-            color: #fff;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            background: #000;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-        }
-
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.75rem;
-            background: transparent;
-            color: #dc2626;
-            font-weight: 700;
-            border: 2px solid #dc2626;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn-outline:hover {
-            background: #dc2626;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
-        }
-
-        /* ===== HERO SECTION - EDITORIAL ===== */
-        #hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(160deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 6rem 0 4rem;
-            overflow: hidden;
-        }
-
-        #hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            color: #0a0a0a;
-        }
-
-        .hero-title .highlight {
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #1a1a1a;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        /* ===== SERVICE CARDS - EDITORIAL ===== */
-        .service-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #dc2626, #ef4444);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: rgba(220, 38, 38, 0.15);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 1.25rem;
-            background: linear-gradient(135deg, #fef2f2, #fee2e2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #dc2626;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.05) rotate(-4deg);
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff;
-        }
-
-        /* ===== GARANTÍA - DESTACADO ===== */
-        #garantia {
-            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
-            color: #fff;
-            padding: 4rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #garantia::before {
-            content: '🛡️';
-            position: absolute;
-            font-size: 20rem;
-            opacity: 0.04;
-            right: -5%;
-            bottom: -30%;
-            transform: rotate(-8deg);
-        }
-
-        .garantia-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .garantia-card h2 {
-            color: #fff;
-        }
-
-        .garantia-card .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            padding: 0.25rem 1rem;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: #fff;
-        }
-
-        /* ===== WIZARD - ESTILO EDITORIAL ===== */
-        .wizard-container {
-            background: #fff;
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 8px 48px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-        }
-
-        .step-indicator {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .step-active {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
-            transform: scale(1.05);
-        }
-
-        .step-completed {
-            background: #22c55e;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-        }
-
-        .step-inactive {
-            background: #f1f5f9;
-            color: #94a3b8;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            flex: 1;
-            margin: 0 0.5rem;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #dc2626, #ef4444);
-            border-radius: 4px;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 0%;
-        }
-
-        /* ===== WIZARD STEPS ===== */
-        .wizard-step {
-            display: none;
-            animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .wizard-step.active {
-            display: block;
-        }
-
-        /* ===== MAPA ===== */
-        #map {
-            height: 300px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-        }
-
-        .leaflet-control-zoom {
-            border: none !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-        }
-
-        .leaflet-control-zoom a {
-            background: #fff !important;
-            color: #1a1a1a !important;
-            border: none !important;
-            transition: all 0.2s ease;
-        }
-
-        .leaflet-control-zoom a:hover {
-            background: #f1f5f9 !important;
-        }
-
-        /* ===== WHATSAPP FLOAT ===== */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-            text-decoration: none;
-            animation: pulse-whatsapp 2s infinite;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1) translateY(-4px);
-            box-shadow: 0 12px 48px rgba(37, 211, 102, 0.5);
-        }
-
-        @keyframes pulse-whatsapp {
-            0%, 100% { box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 8px 48px rgba(37, 211, 102, 0.6); }
-        }
-
-        /* ===== TOAST NOTIFICATIONS ===== */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 14px 28px;
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            z-index: 9999;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 90%;
-            text-align: center;
-        }
-
-        .toast-success {
-            background: #22c55e;
-            color: #fff;
-        }
-
-        .toast-warning {
-            background: #f59e0b;
-            color: #fff;
-        }
-
-        .toast-error {
-            background: #ef4444;
-            color: #fff;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #dc2626, #b91c1c);
-            border-radius: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #b91c1c;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .service-card {
-                padding: 1.5rem 1rem;
-            }
-            
-            .wizard-container {
-                padding: 1.25rem;
-            }
-            
-            .whatsapp-float {
-                width: 56px;
-                height: 56px;
-                font-size: 1.5rem;
-                bottom: 1.25rem;
-                right: 1.25rem;
-            }
-            
-            #garantia::before {
-                font-size: 10rem;
-                right: -15%;
-            }
-
-            .step-indicator {
-                width: 36px;
-                height: 36px;
-                font-size: 0.85rem;
-            }
-        }
-
-        /* ===== IDIOMA ===== */
-        .lang-btn {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            border-radius: 50px;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-            background: #f1f5f9;
-            color: #64748b;
-        }
-
-        .lang-btn:hover {
-            background: #e2e8f0;
-        }
-
-        .lang-btn-active {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-        }
-
-        .lang-btn-inactive {
-            background: #f1f5f9;
-            color: #64748b;
-        }
-
-        /* ===== BOTONES DE PROBLEMA ===== */
-        .problema-btn {
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .problema-btn:hover {
-            border-color: #dc2626;
-            transform: translateX(4px);
-        }
-
-        .problema-btn.selected {
-            border-color: #dc2626;
-            background: #fef2f2 !important;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
-        }
-
-        /* ===== INPUTS ===== */
-        input, textarea {
-            transition: all 0.2s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar-scrolled {
-            background: rgba(255, 255, 255, 0.98) !important;
-            backdrop-filter: blur(16px) !important;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
-        }
-    </style>
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, .10); }
+    html.dark .service-card:hover { box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+    .problem-option[aria-pressed="true"] { border-color: #eab308; background: #fffbeb; box-shadow: 0 0 0 3px rgba(234,179,8,.15); }
+    html.dark .problem-option[aria-pressed="true"] { background: rgba(234,179,8,.12); }
+    .wizard-panel[hidden] { display: none; }
+    #map { min-height: 280px; z-index: 1; }
+    .leaflet-control-attribution { font-size: 10px; }
+    .focus-ring:focus-visible { outline: 3px solid rgba(234,179,8,.55); outline-offset: 3px; }
+    /* App-like bottom safe area for mobile */
+    .pb-safe { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+    body.has-bottom-nav { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+    @media (min-width: 1024px) { body.has-bottom-nav { padding-bottom: 0; } }
+    .theme-toggle-track { width: 3.25rem; height: 1.75rem; }
+    .theme-toggle-knob { transform: translateX(0); }
+    html.dark .theme-toggle-knob { transform: translateX(1.5rem); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+
+  <!-- JSON-LD: rich, machine-readable description of the business for search engines and AI agents -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "AutoRepair"],
+    "@id": "https://servimotrizpty.com/#negocio",
+    "name": "Servimotriz PTY",
+    "alternateName": "Servimotriz Panamá",
+    "description": "Servicio de mecánico y electromecánico a domicilio y taller móvil en Arraiján, Panamá Oeste y Ciudad de Panamá. Diagnóstico computarizado, frenos, suspensión, sistema eléctrico y auxilio vial.",
+    "slogan": "El taller que va contigo",
+    "telephone": "+50764773172",
+    "email": "servimotrizdorante@gmail.com",
+    "priceRange": "$$",
+    "currenciesAccepted": "USD",
+    "paymentAccepted": "Cash, Mobile Payment",
+    "knowsLanguage": ["es", "en", "fr", "zh"],
+    "areaServed": [
+      { "@type": "City", "name": "Arraiján" },
+      { "@type": "City", "name": "La Chorrera" },
+      { "@type": "Place", "name": "Los Andes" },
+      { "@type": "Place", "name": "Las Acacias" },
+      { "@type": "Place", "name": "Don Bosco" },
+      { "@type": "City", "name": "Panamá" }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Arraiján",
+      "addressRegion": "Panamá Oeste",
+      "addressCountry": "PA"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 8.9472, "longitude": -79.6558 },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=8.9472,-79.6558",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00" }
+    ],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+507-6477-3172",
+      "contactType": "customer service",
+      "areaServed": "PA",
+      "availableLanguage": ["Spanish", "English", "French", "Chinese"]
+    }],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de mecánica y electromecánica a domicilio",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento preventivo", "serviceType": "Mantenimiento preventivo de vehículos" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento correctivo", "serviceType": "Reparación mecánica correctiva" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diagnóstico computarizado", "serviceType": "Escaneo y diagnóstico automotriz" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Suspensión y frenos", "serviceType": "Reparación de suspensión y sistema de frenos" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicio de motor", "serviceType": "Mantenimiento de motor" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aire acondicionado y refrigeración", "serviceType": "Reparación de sistema de aire acondicionado automotriz" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sistema eléctrico y auxilio vial", "serviceType": "Electromecánica de emergencia y asistencia en carretera" } }
+      ]
+    },
+    "makesOffer": {
+      "@type": "Offer",
+      "name": "Revisión y servicio a domicilio",
+      "price": "35",
+      "priceCurrency": "USD",
+      "description": "Costo base de revisión a domicilio. No se cobra si se realiza la reparación en el momento."
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://servimotrizpty.com/#inicio" },
+      { "@type": "ListItem", "position": 2, "name": "Quiénes somos", "item": "https://servimotrizpty.com/#nosotros" },
+      { "@type": "ListItem", "position": 3, "name": "Servicios", "item": "https://servimotrizpty.com/#servicios" },
+      { "@type": "ListItem", "position": 4, "name": "Cotizador", "item": "https://servimotrizpty.com/#cotizador" }
+    ]
+  }
+  </script>
 </head>
-<body>
+<body class="has-bottom-nav bg-slate-50 text-slate-900 selection:bg-yellow-200 selection:text-slate-950 dark:bg-slate-950 dark:text-slate-100">
 
-    <!-- ============================================================ -->
-    <!-- HEADER / NAVBAR -->
-    <!-- ============================================================ -->
-    <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 transition-all duration-300" id="mainHeader">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2 text-xl font-bold text-gray-800 hover:text-red-600 transition-colors">
-                <i class="fas fa-car text-red-600 text-2xl"></i>
-                <span>Servimotriz<span class="text-red-600">PTY</span></span>
-            </a>
+  <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:shadow-xl dark:focus:bg-slate-800 dark:focus:text-white" data-i18n="skip">Saltar al contenido</a>
 
-            <!-- Idiomas -->
-            <div class="flex gap-1">
-                <button class="lang-btn lang-btn-active" data-lang="es" title="Español">ES</button>
-                <button class="lang-btn lang-btn-inactive" data-lang="en" title="English">EN</button>
-                <button class="lang-btn lang-btn-inactive" data-lang="zh" title="中文">中</button>
-            </div>
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 text-white shadow-lg backdrop-blur" itemscope itemtype="https://schema.org/AutoRepair">
+    <meta itemprop="name" content="Servimotriz PTY">
+    <meta itemprop="telephone" content="+50764773172">
+    <meta itemprop="email" content="servimotrizdorante@gmail.com">
+    <meta itemprop="priceRange" content="$$">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+      <a href="#inicio" class="focus-ring flex items-center gap-2.5 rounded-lg" aria-label="Servimotriz PTY">
+        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-yellow-400 text-lg text-slate-950" aria-hidden="true">⚙</span>
+        <span class="font-black tracking-tight sm:text-xl">SERVIMOTRIZ <span class="text-yellow-400">PTY</span></span>
+      </a>
+
+      <nav class="hidden items-center gap-6 text-sm font-semibold lg:flex" aria-label="Principal">
+        <a class="hover:text-yellow-400" href="#nosotros" data-i18n="nav.about">Quiénes somos</a>
+        <a class="hover:text-yellow-400" href="#servicios" data-i18n="nav.services">Servicios</a>
+        <a class="hover:text-yellow-400" href="#garantia" data-i18n="nav.transparency">Costos</a>
+        <a class="hover:text-yellow-400" href="#cotizador" data-i18n="nav.quote">Cotizador</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button id="themeToggle" type="button" class="focus-ring theme-toggle-track relative inline-flex items-center rounded-full bg-slate-700/80 p-0.5" role="switch" aria-checked="false" aria-label="Cambiar a modo oscuro">
+          <span class="theme-toggle-knob grid h-6 w-6 place-items-center rounded-full bg-white text-xs shadow" id="themeToggleIcon" aria-hidden="true">☀️</span>
+        </button>
+        <label for="langSelect" class="sr-only" data-i18n="languageLabel">Idioma</label>
+        <select id="langSelect" class="focus-ring rounded-lg border border-white/15 bg-slate-800 px-2.5 py-2 text-sm font-bold text-white" aria-label="Idioma">
+          <option value="es">🇵🇦 ES</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="zh">🇨🇳 中文</option>
+        </select>
+        <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener" class="focus-ring hidden rounded-lg bg-green-600 px-4 py-2 text-sm font-black hover:bg-green-500 sm:inline-flex" data-i18n="nav.whatsapp">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- STATUS Y HERO -->
+    <section id="inicio" class="hero-grid overflow-hidden bg-slate-950 text-white">
+      <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-20 lg:grid-cols-[1.15fr_.85fr] lg:px-8 lg:py-24">
+        <div>
+          <button id="statusBadge" type="button" class="status-badge focus-ring mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-left text-sm font-black uppercase tracking-wide shadow" aria-live="polite">
+            <span class="h-2 w-2 rounded-full bg-current" aria-hidden="true"></span>
+            <span data-i18n="status.loading">Consultando horario de Panamá…</span>
+          </button>
+
+          <p class="mb-3 font-bold uppercase tracking-[.22em] text-yellow-400" data-i18n="hero.eyebrow">Mecánico y electromecánico a domicilio</p>
+          <h1 class="max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl" data-i18n="hero.title">Servimotriz PTY: El taller que va contigo</h1>
+          <p class="mt-6 max-w-3xl text-lg leading-relaxed text-slate-300 sm:text-xl" data-i18n="hero.description">Más de 10 años de experiencia en mecánica general, electromecánica, diagnóstico computarizado y asistencia vial a domicilio.</p>
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-400" data-i18n="hero.coverage">Atendemos Arraiján, Panamá Oeste y sectores de Ciudad de Panamá como Don Bosco, Las Acacias y Los Andes.</p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#cotizador" class="focus-ring inline-flex min-h-14 items-center justify-center rounded-xl bg-yellow-400 px-7 py-4 text-center font-black text-slate-950 shadow-lg hover:bg-yellow-300" data-i18n="hero.cta">Cotizar mi servicio</a>
+            <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener" class="focus-ring inline-flex min-h-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-7 py-4 text-center font-black text-white hover:bg-white/10" data-i18n="hero.secondary">Hablar por WhatsApp</a>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3 text-sm font-bold text-slate-200" id="heroTrust"></div>
         </div>
-    </header>
 
-    <!-- ============================================================ -->
-    <!-- HERO SECTION -->
-    <!-- ============================================================ -->
-    <section id="hero" class="pt-24 pb-16 md:pt-32 md:pb-24">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
-                <div class="flex-1 text-center md:text-left">
-                    <h1 class="hero-title" data-i18n="hero.title">
-                        Servimotriz PTY: <span class="highlight">El taller que va contigo</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto md:mx-0" data-i18n="hero.subtitle">
-                        Mecánico a domicilio en Arraiján, Panamá Oeste y Ciudad de Panamá (hasta Don Bosco, Las Acacias y Los Andes).
-                    </p>
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <a href="#cotizador" class="btn-primary">
-                            <i class="fas fa-wrench mr-2"></i> <span data-i18n="hero.cta">Solicita tu diagnóstico</span>
-                        </a>
-                        <a href="#servicios" class="btn-outline">
-                            <i class="fas fa-list mr-2"></i> <span data-i18n="hero.services">Ver servicios</span>
-                        </a>
-                    </div>
-                    <div class="hero-badge-group justify-center md:justify-start">
-                        <span class="hero-badge">🔧 <span data-i18n="hero.badge1">Mecánico a domicilio</span></span>
-                        <span class="hero-badge">⚡ <span data-i18n="hero.badge2">Electromecánico</span></span>
-                        <span class="hero-badge">🛻 <span data-i18n="hero.badge3">Taller móvil</span></span>
-                    </div>
-                </div>
-                <div class="flex-1">
-                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=600&auto=format&fit=crop&q=80" 
-                         alt="Mecánico revisando motor de auto" 
-                         class="rounded-2xl shadow-2xl w-full object-cover max-h-[400px]"
-                         loading="lazy">
-                </div>
+        <aside class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur sm:p-8" aria-label="Horario de atención">
+          <div class="mb-6 flex items-center justify-between gap-4">
+            <h2 class="text-2xl font-black" data-i18n="hours.title">Horario de atención</h2>
+            <span class="rounded-full bg-yellow-400 px-3 py-1 text-xs font-black text-slate-950">PANAMÁ</span>
+          </div>
+          <dl class="space-y-4 text-base">
+            <div class="flex justify-between gap-5 border-b border-white/10 pb-4">
+              <dt class="font-bold" data-i18n="hours.weekdays">Lunes a viernes</dt>
+              <dd class="text-slate-300">8:00 a. m. – 6:00 p. m.</dd>
             </div>
-        </div>
+            <div class="flex justify-between gap-5 border-b border-white/10 pb-4">
+              <dt class="font-bold" data-i18n="hours.saturday">Sábados</dt>
+              <dd class="text-slate-300">9:00 a. m. – 5:00 p. m.</dd>
+            </div>
+            <div class="flex justify-between gap-5">
+              <dt class="font-bold" data-i18n="hours.sunday">Domingo</dt>
+              <dd class="font-bold text-rose-300" data-i18n="hours.closed">Cerrado</dd>
+            </div>
+          </dl>
+          <div class="mt-7 rounded-2xl bg-slate-900/80 p-5 h-card vcard">
+            <p class="text-sm text-slate-400" data-i18n="hours.contact">Contacto directo</p>
+            <a class="mt-1 block text-xl font-black text-yellow-400 hover:underline tel" href="tel:+50764773172"><span class="fn org">Servimotriz PTY</span><span class="sr-only"> </span>+507 6477-3172</a>
+            <a class="mt-2 block break-all text-sm text-slate-300 hover:text-white u-email email" href="mailto:servimotrizdorante@gmail.com">servimotrizdorante@gmail.com</a>
+            <span class="adr sr-only"><span class="locality">Arraiján</span>, <span class="region">Panamá Oeste</span>, <span class="country-name">Panamá</span></span>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!-- SERVICIOS (estructurados) -->
-    <!-- ============================================================ -->
-    <section id="servicios" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="section-title text-center w-full" data-i18n="services.title">Nuestros Servicios</h2>
-            <p class="section-subtitle" data-i18n="services.subtitle">Diagnóstico preciso, reparación eficiente y garantía en cada trabajo.</p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Servicio 1: Diagnóstico Computarizado -->
-                <div class="service-card fade-in-up delay-100">
-                    <div class="service-icon">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800" data-i18n="services.diagnostico.title">Diagnóstico Computarizado</h3>
-                    <p class="text-gray-600 mt-2 text-sm" data-i18n="services.diagnostico.desc">Interpretación profesional de códigos de falla, fugas de aire y cableado electrónico.</p>
-                </div>
-                <!-- Servicio 2: Sistema de Frenos -->
-                <div class="service-card fade-in-up delay-200">
-                    <div class="service-icon">
-                        <i class="fas fa-car-side"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800" data-i18n="services.frenos.title">Sistema de Frenos</h3>
-                    <p class="text-gray-600 mt-2 text-sm" data-i18n="services.frenos.desc">Cambio de tacos, banda de freno y ajuste de freno de mano con precisión.</p>
-                </div>
-                <!-- Servicio 3: Mantenimiento Preventivo -->
-                <div class="service-card fade-in-up delay-300">
-                    <div class="service-icon">
-                        <i class="fas fa-oil-can"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800" data-i18n="services.mantenimiento.title">Mantenimiento Preventivo</h3>
-                    <p class="text-gray-600 mt-2 text-sm" data-i18n="services.mantenimiento.desc">Cambio de aceite, filtros, bujías, lavado de motor e hidratado de plásticos.</p>
-                </div>
-                <!-- Servicio 4: Electromecánica de Rescate -->
-                <div class="service-card fade-in-up delay-400">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800" data-i18n="services.electromecanica.title">Electromecánica de Rescate</h3>
-                    <p class="text-gray-600 mt-2 text-sm" data-i18n="services.electromecanica.desc">Alternador, motor de arranque, coil (bobinas) y fusibles en corto.</p>
-                </div>
-            </div>
+    <div class="mx-auto max-w-7xl space-y-16 px-4 py-14 sm:space-y-20 sm:px-6 lg:px-8 lg:py-24">
+      <!-- QUIÉNES SOMOS -->
+      <section id="nosotros" class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+        <div>
+          <p class="font-black uppercase tracking-[.2em] text-yellow-600 dark:text-yellow-400" data-i18n="about.eyebrow">Experiencia que llega hasta ti</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl" data-i18n="about.title">Quiénes somos</h2>
         </div>
-    </section>
+        <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:shadow-softDark sm:p-10">
+          <p class="text-lg leading-8 text-slate-700 dark:text-slate-300" data-i18n="about.body">Somos un equipo altamente capacitado con más de 10 años de experiencia en mecánica general y electromecánica. Trabajamos con tecnología actual, diagnóstico computarizado y las herramientas adecuadas para atender las necesidades de su vehículo. Llegamos a su hogar, su trabajo o donde se encuentre, con asistencia vial y atención profesional.</p>
+        </div>
+      </section>
 
-    <!-- ============================================================ -->
-    <!-- TRANSPARENCIA / GARANTÍA Y COSTOS -->
-    <!-- ============================================================ -->
-    <section id="garantia" class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="garantia-card max-w-4xl mx-auto">
-                <div class="flex items-start gap-4 flex-col md:flex-row">
-                    <i class="fas fa-shield-alt text-red-500 text-4xl mt-1"></i>
-                    <div>
-                        <h2 class="text-2xl md:text-3xl font-bold" data-i18n="garantia.title">Transparencia Total</h2>
-                        <p class="text-gray-300 text-lg mt-2" data-i18n="garantia.desc">
-                            La <strong>revisión y servicio a domicilio</strong> tiene un costo base de <span class="price-tag">$35</span>.
-                            Si se realiza el trabajo de reparación con nosotros en el momento, 
-                            <span class="font-bold text-green-400">NO se cobra el costo de la revisión</span>, 
-                            únicamente el valor del trabajo realizado.
-                        </p>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm border border-green-500/30">
-                                <i class="fas fa-check-circle mr-1"></i> <span data-i18n="garantia.badge1">Sin sorpresas</span>
-                            </span>
-                            <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm border border-blue-500/30">
-                                <i class="fas fa-tools mr-1"></i> <span data-i18n="garantia.badge2">Garantía en mano de obra</span>
-                            </span>
-                        </div>
-                    </div>
+      <!-- MARCAS -->
+      <section class="rounded-3xl bg-slate-900 px-5 py-10 text-center text-white sm:px-8">
+        <h2 class="text-xl font-black" data-i18n="brands.title">Trabajamos con múltiples marcas</h2>
+        <p class="mx-auto mt-2 max-w-2xl text-sm text-slate-400" data-i18n="brands.subtitle">Servicio multimarca sujeto a diagnóstico, disponibilidad de piezas y tipo de reparación.</p>
+        <div id="brandsList" class="mt-7 flex flex-wrap justify-center gap-3"></div>
+      </section>
+
+      <!-- SERVICIOS SEO -->
+      <section id="servicios">
+        <div class="max-w-3xl">
+          <p class="font-black uppercase tracking-[.2em] text-yellow-600 dark:text-yellow-400" data-i18n="services.eyebrow">Taller móvil y asistencia vial</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl" data-i18n="services.title">Nuestros servicios de mecánica a domicilio</h2>
+          <p class="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-400" data-i18n="services.intro">Realizamos mantenimiento preventivo, mantenimiento correctivo, diagnóstico computarizado, revisión de suspensión, frenos, mecánica ligera, refrigeración y trabajos de sistema eléctrico en Arraiján, Panamá Oeste y áreas de cobertura en Ciudad de Panamá.</p>
+        </div>
+        <div id="servicesGrid" class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+
+      <!-- COBERTURA -->
+      <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:shadow-softDark">
+        <div class="grid lg:grid-cols-2">
+          <div class="p-7 sm:p-10">
+            <p class="font-black uppercase tracking-[.2em] text-yellow-600 dark:text-yellow-400" data-i18n="coverage.eyebrow">Cobertura local</p>
+            <h2 class="mt-3 text-3xl font-black" data-i18n="coverage.title">Mecánico en Arraiján y electromecánico en Panamá Oeste</h2>
+            <p class="mt-5 leading-7 text-slate-600 dark:text-slate-400" data-i18n="coverage.body">Nuestro taller móvil atiende solicitudes en Arraiján, La Chorrera, Los Andes, Las Acacias, Don Bosco y otros sectores de Panamá según disponibilidad y tipo de servicio.</p>
+            <div id="coverageList" class="mt-7 flex flex-wrap gap-2"></div>
+          </div>
+          <div class="bg-yellow-400 p-7 text-slate-950 sm:p-10">
+            <h3 class="text-2xl font-black" data-i18n="coverage.rescueTitle">Auxilio vial donde lo necesites</h3>
+            <p class="mt-4 leading-7" data-i18n="coverage.rescueBody">Atendemos fallas de batería, alternador, motor de arranque, fusibles, sensores, luces de tablero, recalentamiento y problemas de frenos. La viabilidad del trabajo se confirma después de revisar el vehículo.</p>
+            <a href="#cotizador" class="focus-ring mt-7 inline-flex rounded-xl bg-slate-950 px-6 py-4 font-black text-white hover:bg-slate-800" data-i18n="coverage.cta">Solicitar revisión</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRANSPARENCIA -->
+      <section id="garantia" class="rounded-3xl border-2 border-yellow-400 bg-yellow-50 p-7 dark:bg-yellow-400/10 sm:p-10">
+        <div class="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+          <div>
+            <span class="inline-flex rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white" data-i18n="pricing.badge">Costos claros</span>
+            <h2 class="mt-5 text-3xl font-black tracking-tight" data-i18n="pricing.title">Revisión y servicio a domicilio</h2>
+          </div>
+          <div>
+            <p class="text-xl font-bold leading-8 text-slate-900 dark:text-slate-100" data-i18n="pricing.body">La revisión y servicio a domicilio tiene un costo base de $35. Si se realiza el trabajo de reparación con nosotros en el momento, NO se cobra el costo de la revisión; únicamente se paga el valor del trabajo realizado.</p>
+            <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-400" data-i18n="pricing.note">El costo final puede variar según distancia, diagnóstico, repuestos y complejidad. Se confirma antes de iniciar la reparación.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- COTIZADOR MULTIPASOS -->
+      <section id="cotizador" class="scroll-mt-24">
+        <div class="mx-auto max-w-4xl">
+          <div class="text-center">
+            <p class="font-black uppercase tracking-[.2em] text-yellow-600 dark:text-yellow-400" data-i18n="quote.eyebrow">Respuesta por WhatsApp</p>
+            <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl" data-i18n="quote.title">Cotizador Express</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-slate-600 dark:text-slate-400" data-i18n="quote.intro">Completa los datos del vehículo, el problema y tu ubicación exacta. El formulario preparará un mensaje listo para enviar.</p>
+          </div>
+
+          <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:shadow-softDark">
+            <div class="border-b border-slate-200 bg-slate-50 px-5 py-5 dark:border-slate-800 dark:bg-slate-950/40 sm:px-8">
+              <ol class="grid grid-cols-3 gap-2" aria-label="Progreso">
+                <li class="step-indicator flex items-center gap-2 text-xs font-black sm:text-sm" data-step-indicator="1"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-yellow-400 text-slate-950">1</span><span class="hidden sm:inline" data-i18n="quote.step1Short">Vehículo</span></li>
+                <li class="step-indicator flex items-center justify-center gap-2 text-xs font-black text-slate-400 sm:text-sm" data-step-indicator="2"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-slate-200 dark:bg-slate-700">2</span><span class="hidden sm:inline" data-i18n="quote.step2Short">Problema</span></li>
+                <li class="step-indicator flex items-center justify-end gap-2 text-xs font-black text-slate-400 sm:text-sm" data-step-indicator="3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-slate-200 dark:bg-slate-700">3</span><span class="hidden sm:inline" data-i18n="quote.step3Short">Ubicación</span></li>
+              </ol>
+            </div>
+
+            <form id="wizardForm" class="p-5 sm:p-8" novalidate>
+              <!-- STEP 1 -->
+              <section class="wizard-panel" data-step="1">
+                <h3 class="text-2xl font-black" data-i18n="quote.step1Title">Datos del vehículo</h3>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400" data-i18n="quote.step1Help">Escribe la información lo más exacta posible.</p>
+                <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                  <label class="block">
+                    <span class="mb-2 block text-sm font-bold" data-i18n="form.brand">Marca</span>
+                    <input id="carBrand" autocomplete="organization" required class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Toyota">
+                  </label>
+                  <label class="block">
+                    <span class="mb-2 block text-sm font-bold" data-i18n="form.model">Modelo</span>
+                    <input id="carModel" required class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Corolla">
+                  </label>
+                  <label class="block sm:col-span-2">
+                    <span class="mb-2 block text-sm font-bold" data-i18n="form.year">Año</span>
+                    <input id="carYear" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="2018">
+                  </label>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="mt-7 flex justify-end">
+                  <button type="button" class="next-step focus-ring inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-slate-950 px-6 py-3 font-black text-white hover:bg-slate-800 dark:bg-yellow-400 dark:text-slate-950 dark:hover:bg-yellow-300 sm:w-auto" data-next="2" data-i18n="form.continue">Continuar</button>
+                </div>
+              </section>
 
-    <!-- ============================================================ -->
-    <!-- COTIZADOR MULTIPASOS (WIZARD) -->
-    <!-- ============================================================ -->
-    <section id="cotizador" class="py-16 bg-white">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <h2 class="section-title text-center w-full" data-i18n="cotizador.title">Solicita tu Diagnóstico</h2>
-            <p class="section-subtitle" data-i18n="cotizador.subtitle">Completa los pasos y recibe atención inmediata por WhatsApp.</p>
+              <!-- STEP 2 -->
+              <section class="wizard-panel" data-step="2" hidden>
+                <h3 class="text-2xl font-black" data-i18n="quote.step2Title">¿Qué problema presenta?</h3>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400" data-i18n="quote.step2Help">Selecciona la opción más cercana o escribe otro problema.</p>
+                <div id="problemOptions" class="mt-6 grid gap-3 sm:grid-cols-2"></div>
+                <label class="mt-5 block">
+                  <span class="mb-2 block text-sm font-bold" data-i18n="form.otherProblem">Daño estimado u otro problema</span>
+                  <textarea id="problemDetails" rows="4" class="focus-ring w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-800 dark:text-white" data-i18n-placeholder="form.otherProblemPlaceholder" placeholder="Describe lo que ocurre, sonidos, luces del tablero o cuándo comenzó la falla."></textarea>
+                </label>
+                <p id="problemError" class="mt-3 hidden text-sm font-bold text-red-600 dark:text-red-400" data-i18n="form.problemRequired">Selecciona o describe un problema.</p>
+                <div class="mt-7 flex flex-col-reverse justify-between gap-3 sm:flex-row">
+                  <button type="button" class="prev-step focus-ring min-h-12 rounded-xl border border-slate-300 px-6 py-3 font-black hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800" data-prev="1" data-i18n="form.back">Atrás</button>
+                  <button type="button" class="next-step focus-ring min-h-12 rounded-xl bg-slate-950 px-6 py-3 font-black text-white hover:bg-slate-800 dark:bg-yellow-400 dark:text-slate-950 dark:hover:bg-yellow-300" data-next="3" data-i18n="form.continue">Continuar</button>
+                </div>
+              </section>
 
-            <div class="wizard-container">
-                <!-- Pasos indicador -->
-                <div class="flex justify-between items-center mb-8">
-                    <div class="flex items-center gap-2">
-                        <span class="step-indicator step-active" id="stepIndicator1">1</span>
-                        <span class="text-sm text-gray-600 hidden sm:inline" data-i18n="cotizador.step1">Vehículo</span>
+              <!-- STEP 3 -->
+              <section class="wizard-panel" data-step="3" hidden>
+                <h3 class="text-2xl font-black" data-i18n="quote.step3Title">Tu ubicación exacta</h3>
+                <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400" data-i18n="quote.step3Help">El mapa inicia en Arraiján solo como referencia. Esa ubicación base nunca se enviará. Debes escribir tu dirección o compartir las coordenadas reales del dispositivo.</p>
+
+                <div class="mt-6 space-y-5">
+                  <label class="block">
+                    <span class="mb-2 block text-sm font-bold" data-i18n="form.address">Dirección, barriada o punto de referencia</span>
+                    <input id="locationText" required class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-800 dark:text-white" data-i18n-placeholder="form.addressPlaceholder" placeholder="Ej.: Vacamonte, barriada…, casa…, cerca de…">
+                  </label>
+
+                  <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/60 sm:p-5">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <h4 class="font-black" data-i18n="form.coordinatesTitle">Coordenadas exactas</h4>
+                        <p class="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400" data-i18n="form.coordinatesHelp">Puedes obtenerlas por GPS o escribirlas manualmente. No usamos el punto inicial de Arraiján.</p>
+                      </div>
+                      <button id="getLocationBtn" type="button" class="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl bg-yellow-400 px-5 py-3 font-black text-slate-950 hover:bg-yellow-300">
+                        <span aria-hidden="true">📍</span>&nbsp;<span data-i18n="form.getGps">Usar mi ubicación actual</span>
+                      </button>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-bar-fill" id="progressBarFill"></div>
+
+                    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                      <label class="block">
+                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Latitud</span>
+                        <input id="latitude" inputmode="decimal" class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white" placeholder="8.950000">
+                      </label>
+                      <label class="block">
+                        <span class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Longitud</span>
+                        <input id="longitude" inputmode="decimal" class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white" placeholder="-79.650000">
+                      </label>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="step-indicator step-inactive" id="stepIndicator2">2</span>
-                        <span class="text-sm text-gray-600 hidden sm:inline" data-i18n="cotizador.step2">Problema</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-bar-fill" id="progressBarFill2"></div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="step-indicator step-inactive" id="stepIndicator3">3</span>
-                        <span class="text-sm text-gray-600 hidden sm:inline" data-i18n="cotizador.step3">Ubicación</span>
-                    </div>
+
+                    <div id="locationFeedback" class="mt-4 rounded-xl bg-white px-4 py-3 text-sm text-slate-600 dark:bg-slate-900 dark:text-slate-300" role="status" aria-live="polite" data-i18n="form.noLocation">Aún no se ha seleccionado una ubicación exacta.</div>
+                  </div>
+
+                  <div id="map" class="w-full overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700" aria-label="Mapa de ubicación"></div>
+                  <p class="text-xs leading-5 text-slate-500 dark:text-slate-400" data-i18n="form.mapNote">El enlace enviado por WhatsApp incluirá las coordenadas en texto y una URL HTTPS que puede abrirse desde aplicaciones de mapas.</p>
+                  <p id="locationError" class="hidden text-sm font-bold text-red-600 dark:text-red-400" data-i18n="form.locationRequired">Escribe una dirección y agrega coordenadas válidas antes de enviar.</p>
                 </div>
 
-                <!-- Wizard Steps -->
-                <form id="wizardForm" class="space-y-6" novalidate>
-                    <!-- STEP 1: Datos del vehículo -->
-                    <div class="wizard-step active" data-step="1">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-1" data-i18n="cotizador.marca">Marca</label>
-                                <input type="text" id="vehiculoMarca" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all" placeholder="Ej: Toyota" required>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-1" data-i18n="cotizador.modelo">Modelo</label>
-                                <input type="text" id="vehiculoModelo" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all" placeholder="Ej: Corolla" required>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-1" data-i18n="cotizador.anio">Año</label>
-                                <input type="number" id="vehiculoAnio" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all" placeholder="Ej: 2020" min="1980" max="2026" required>
-                            </div>
-                            <button type="button" class="btn-primary w-full" onclick="goToStep(2)">
-                                <i class="fas fa-arrow-right mr-2"></i> <span data-i18n="cotizador.siguiente">Siguiente</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- STEP 2: Problema -->
-                    <div class="wizard-step" data-step="2">
-                        <div class="space-y-4">
-                            <p class="text-gray-700 font-semibold text-lg" data-i18n="cotizador.problema_label">¿Qué problema presenta tu vehículo?</p>
-                            <div class="grid grid-cols-1 gap-3">
-                                <button type="button" class="problema-btn bg-gray-100 hover:bg-red-50 p-3 rounded-lg text-left transition-all duration-200" data-value="El carro se me está recalentando">
-                                    🌡️ <span data-i18n="cotizador.problema1">El carro se me está recalentando</span>
-                                </button>
-                                <button type="button" class="problema-btn bg-gray-100 hover:bg-red-50 p-3 rounded-lg text-left transition-all duration-200" data-value="Se le bajó la batería / No enciende">
-                                    🔋 <span data-i18n="cotizador.problema2">Se le bajó la batería / No enciende</span>
-                                </button>
-                                <button type="button" class="problema-btn bg-gray-100 hover:bg-red-50 p-3 rounded-lg text-left transition-all duration-200" data-value="Tiene una luz prendida en el tablero (Check Engine)">
-                                    ⚠️ <span data-i18n="cotizador.problema3">Tiene una luz prendida en el tablero (Check Engine)</span>
-                                </button>
-                                <button type="button" class="problema-btn bg-gray-100 hover:bg-red-50 p-3 rounded-lg text-left transition-all duration-200" data-value="Siento un chillido / Problema con los frenos">
-                                    🔊 <span data-i18n="cotizador.problema4">Siento un chillido / Problema con los frenos</span>
-                                </button>
-                                <button type="button" class="problema-btn bg-gray-100 hover:bg-red-50 p-3 rounded-lg text-left transition-all duration-200" data-value="Falla eléctrica (Alternador, arranque, corto)">
-                                    ⚡ <span data-i18n="cotizador.problema5">Falla eléctrica (Alternador, arranque, corto)</span>
-                                </button>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-1" data-i18n="cotizador.problema_otro">Daño estimado u otro problema</label>
-                                <input type="text" id="problemaOtro" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all" placeholder="Describe el problema...">
-                            </div>
-                            <input type="hidden" id="problemaSeleccionado" value="">
-                            <div class="flex gap-3">
-                                <button type="button" class="btn-outline flex-1" onclick="goToStep(1)">
-                                    <i class="fas fa-arrow-left mr-2"></i> <span data-i18n="cotizador.anterior">Anterior</span>
-                                </button>
-                                <button type="button" class="btn-primary flex-1" onclick="goToStep(3)">
-                                    <i class="fas fa-arrow-right mr-2"></i> <span data-i18n="cotizador.siguiente">Siguiente</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- STEP 3: Ubicación + Mapa -->
-                    <div class="wizard-step" data-step="3">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-1" data-i18n="cotizador.ubicacion_label">Escribe tu zona</label>
-                                <input type="text" id="ubicacionZona" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all" placeholder="Ej: Arraiján, La Chorrera, Los Andes..." required>
-                            </div>
-                            <div>
-                                <div id="map"></div>
-                                <button type="button" id="btnMostrarUbicacion" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all w-full shadow-md hover:shadow-lg">
-                                    <i class="fas fa-map-pin mr-2"></i> <span data-i18n="cotizador.mostrar_ubicacion">Mostrar mi ubicación</span>
-                                </button>
-                            </div>
-                            <div class="flex gap-3">
-                                <button type="button" class="btn-outline flex-1" onclick="goToStep(2)">
-                                    <i class="fas fa-arrow-left mr-2"></i> <span data-i18n="cotizador.anterior">Anterior</span>
-                                </button>
-                                <button type="submit" class="btn-primary flex-1">
-                                    <i class="fab fa-whatsapp mr-2"></i> <span data-i18n="cotizador.enviar">Enviar por WhatsApp</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                <div class="mt-7 flex flex-col-reverse justify-between gap-3 sm:flex-row">
+                  <button type="button" class="prev-step focus-ring min-h-12 rounded-xl border border-slate-300 px-6 py-3 font-black hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800" data-prev="2" data-i18n="form.back">Atrás</button>
+                  <button type="submit" class="focus-ring inline-flex min-h-14 items-center justify-center rounded-xl bg-green-600 px-7 py-4 text-lg font-black text-white shadow-lg hover:bg-green-500">
+                    <span aria-hidden="true">💬</span>&nbsp;<span data-i18n="form.send">Enviar solicitud por WhatsApp</span>
+                  </button>
+                </div>
+              </section>
+            </form>
+          </div>
         </div>
-    </section>
+      </section>
+    </div>
+  </main>
 
-    <!-- ============================================================ -->
-    <!-- FOOTER -->
-    <!-- ============================================================ -->
-    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-sm text-gray-400">
-                &copy; 2026 <span class="text-red-400 font-semibold">Servimotriz PTY</span> — 
-                <span data-i18n="footer.slogan">El taller que va contigo</span>
-            </p>
-            <p class="text-xs text-gray-500 mt-2">
-                <i class="fas fa-phone mr-1"></i> +507 6477-3172 &nbsp;|&nbsp;
-                <i class="fas fa-map-marker-alt mr-1"></i> <span data-i18n="footer.area">Arraiján, Panamá Oeste</span>
-            </p>
-            <div class="mt-3 flex justify-center gap-4 text-gray-500">
-                <a href="#" class="hover:text-red-400 transition-colors"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="hover:text-red-400 transition-colors"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-red-400 transition-colors"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-    </footer>
+  <footer class="bg-slate-950 px-4 py-12 text-white sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
+      <div>
+        <p class="text-xl font-black">SERVIMOTRIZ <span class="text-yellow-400">PTY</span></p>
+        <p class="mt-3 max-w-sm text-sm leading-6 text-slate-400" data-i18n="footer.tagline">Mecánico a domicilio, electromecánico y taller móvil para Panamá Oeste y áreas de cobertura.</p>
+      </div>
+      <div>
+        <h2 class="font-black" data-i18n="footer.contact">Contacto</h2>
+        <a class="mt-3 block text-slate-300 hover:text-white" href="tel:+50764773172">+507 6477-3172</a>
+        <a class="mt-2 block break-all text-slate-300 hover:text-white" href="mailto:servimotrizdorante@gmail.com">servimotrizdorante@gmail.com</a>
+      </div>
+      <div class="md:text-right">
+        <p class="text-sm text-slate-400">© <span id="currentYear"></span> Servimotriz PTY</p>
+        <p class="mt-3 text-sm font-bold text-white">Desarrollo: <span class="text-yellow-400">Joe Codex</span></p>
+      </div>
+    </div>
+  </footer>
 
-    <!-- ============================================================ -->
-    <!-- WHATSAPP FLOATING BUTTON -->
-    <!-- ============================================================ -->
-    <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener noreferrer" 
-       class="whatsapp-float" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp"></i>
+  <a href="https://api.whatsapp.com/send?phone=50764773172" target="_blank" rel="noopener" aria-label="Abrir WhatsApp" class="focus-ring fixed bottom-20 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-green-600 text-2xl text-white shadow-2xl hover:bg-green-500 lg:bottom-5 sm:h-16 sm:w-16">💬</a>
+
+  <!-- BOTTOM APP-LIKE NAV (mobile only) -->
+  <nav id="bottomNav" class="pb-safe fixed inset-x-0 bottom-0 z-40 flex border-t border-slate-200 bg-white/95 backdrop-blur lg:hidden dark:border-slate-800 dark:bg-slate-950/95" aria-label="Navegación móvil">
+    <a href="#inicio" class="bottom-tab flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-bold text-slate-500 hover:text-yellow-600 dark:text-slate-400 dark:hover:text-yellow-400">
+      <span aria-hidden="true" class="text-lg">🏠</span><span data-i18n="navMobile.home">Inicio</span>
     </a>
+    <a href="#servicios" class="bottom-tab flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-bold text-slate-500 hover:text-yellow-600 dark:text-slate-400 dark:hover:text-yellow-400">
+      <span aria-hidden="true" class="text-lg">🔧</span><span data-i18n="navMobile.services">Servicios</span>
+    </a>
+    <a href="#cotizador" class="bottom-tab flex flex-1 flex-col items-center gap-0.5 rounded-t-2xl bg-yellow-400 py-2.5 text-[11px] font-black text-slate-950">
+      <span aria-hidden="true" class="text-lg">📋</span><span data-i18n="navMobile.quote">Cotizar</span>
+    </a>
+    <a href="tel:+50764773172" class="bottom-tab flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-bold text-slate-500 hover:text-yellow-600 dark:text-slate-400 dark:hover:text-yellow-400">
+      <span aria-hidden="true" class="text-lg">📞</span><span data-i18n="navMobile.call">Llamar</span>
+    </a>
+  </nav>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS (Todo integrado) -->
-    <!-- ============================================================ -->
-    
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <script>
-        // ============================================================
-        // 1. TRANSLATIONS (Objeto JSON multilingüe)
-        // ============================================================
-        const translations = {
-            es: {
-                hero: {
-                    title: 'Servimotriz PTY: <span class="highlight">El taller que va contigo</span>',
-                    subtitle: 'Mecánico a domicilio en Arraiján, Panamá Oeste y Ciudad de Panamá (hasta Don Bosco, Las Acacias y Los Andes).',
-                    cta: 'Solicita tu diagnóstico',
-                    services: 'Ver servicios',
-                    badge1: 'Mecánico a domicilio',
-                    badge2: 'Electromecánico',
-                    badge3: 'Taller móvil'
-                },
-                services: {
-                    title: 'Nuestros Servicios',
-                    subtitle: 'Diagnóstico preciso, reparación eficiente y garantía en cada trabajo.',
-                    diagnostico: {
-                        title: 'Diagnóstico Computarizado',
-                        desc: 'Interpretación profesional de códigos de falla, fugas de aire y cableado electrónico.'
-                    },
-                    frenos: {
-                        title: 'Sistema de Frenos',
-                        desc: 'Cambio de tacos, banda de freno y ajuste de freno de mano con precisión.'
-                    },
-                    mantenimiento: {
-                        title: 'Mantenimiento Preventivo',
-                        desc: 'Cambio de aceite, filtros, bujías, lavado de motor e hidratado de plásticos.'
-                    },
-                    electromecanica: {
-                        title: 'Electromecánica de Rescate',
-                        desc: 'Alternador, motor de arranque, coil (bobinas) y fusibles en corto.'
-                    }
-                },
-                garantia: {
-                    title: 'Transparencia Total',
-                    desc: 'La <strong>revisión y servicio a domicilio</strong> tiene un costo base de <span class="price-tag">$35</span>. Si se realiza el trabajo de reparación con nosotros en el momento, <span class="font-bold text-green-400">NO se cobra el costo de la revisión</span>, únicamente el valor del trabajo realizado.',
-                    badge1: 'Sin sorpresas',
-                    badge2: 'Garantía en mano de obra'
-                },
-                cotizador: {
-                    title: 'Solicita tu Diagnóstico',
-                    subtitle: 'Completa los pasos y recibe atención inmediata por WhatsApp.',
-                    step1: 'Vehículo',
-                    step2: 'Problema',
-                    step3: 'Ubicación',
-                    marca: 'Marca',
-                    modelo: 'Modelo',
-                    anio: 'Año',
-                    siguiente: 'Siguiente',
-                    anterior: 'Anterior',
-                    problema_label: '¿Qué problema presenta tu vehículo?',
-                    problema1: 'El carro se me está recalentando',
-                    problema2: 'Se le bajó la batería / No enciende',
-                    problema3: 'Tiene una luz prendida en el tablero (Check Engine)',
-                    problema4: 'Siento un chillido / Problema con los frenos',
-                    problema5: 'Falla eléctrica (Alternador, arranque, corto)',
-                    problema_otro: 'Daño estimado u otro problema',
-                    ubicacion_label: 'Escribe tu zona',
-                    mostrar_ubicacion: 'Mostrar mi ubicación',
-                    enviar: 'Enviar por WhatsApp'
-                },
-                footer: {
-                    slogan: 'El taller que va contigo',
-                    area: 'Arraiján, Panamá Oeste'
-                }
-            },
-            en: {
-                hero: {
-                    title: 'Servimotriz PTY: <span class="highlight">The workshop that goes with you</span>',
-                    subtitle: 'Mobile mechanic in Arraiján, West Panama and Panama City (up to Don Bosco, Las Acacias and Los Andes).',
-                    cta: 'Request your diagnosis',
-                    services: 'View services',
-                    badge1: 'Mobile mechanic',
-                    badge2: 'Electromechanic',
-                    badge3: 'Mobile workshop'
-                },
-                services: {
-                    title: 'Our Services',
-                    subtitle: 'Accurate diagnosis, efficient repair and warranty on every job.',
-                    diagnostico: {
-                        title: 'Computerized Diagnosis',
-                        desc: 'Professional interpretation of fault codes, air leaks and electronic wiring.'
-                    },
-                    frenos: {
-                        title: 'Brake System',
-                        desc: 'Brake pad replacement, brake band replacement and handbrake adjustment with precision.'
-                    },
-                    mantenimiento: {
-                        title: 'Preventive Maintenance',
-                        desc: 'Oil change, filters, spark plugs, engine wash and plastic hydration.'
-                    },
-                    electromecanica: {
-                        title: 'Electromechanical Rescue',
-                        desc: 'Alternator, starter motor, coil and short fuses.'
-                    }
-                },
-                garantia: {
-                    title: 'Total Transparency',
-                    desc: 'The <strong>home inspection and service</strong> has a base cost of <span class="price-tag">$35</span>. If you have the repair work done with us on the spot, <span class="font-bold text-green-400">the inspection cost is NOT charged</span>, only the value of the work performed.',
-                    badge1: 'No surprises',
-                    badge2: 'Warranty on labor'
-                },
-                cotizador: {
-                    title: 'Request Your Diagnosis',
-                    subtitle: 'Complete the steps and receive immediate attention via WhatsApp.',
-                    step1: 'Vehicle',
-                    step2: 'Problem',
-                    step3: 'Location',
-                    marca: 'Brand',
-                    modelo: 'Model',
-                    anio: 'Year',
-                    siguiente: 'Next',
-                    anterior: 'Previous',
-                    problema_label: 'What problem does your vehicle have?',
-                    problema1: 'The car is overheating',
-                    problema2: 'Battery died / Won\'t start',
-                    problema3: 'A dashboard light is on (Check Engine)',
-                    problema4: 'I hear a squeal / Brake problem',
-                    problema5: 'Electrical fault (Alternator, starter, short)',
-                    problema_otro: 'Estimated damage or other problem',
-                    ubicacion_label: 'Enter your zone',
-                    mostrar_ubicacion: 'Show my location',
-                    enviar: 'Send via WhatsApp'
-                },
-                footer: {
-                    slogan: 'The workshop that goes with you',
-                    area: 'Arraiján, West Panama'
-                }
-            },
-            zh: {
-                hero: {
-                    title: 'Servimotriz PTY: <span class="highlight">随行的维修站</span>',
-                    subtitle: '在Arraiján、巴拿马西部和巴拿马城（至Don Bosco、Las Acacias和Los Andes）提供上门机械师服务。',
-                    cta: '申请诊断',
-                    services: '查看服务',
-                    badge1: '上门机械师',
-                    badge2: '电机机械师',
-                    badge3: '移动维修站'
-                },
-                services: {
-                    title: '我们的服务',
-                    subtitle: '精准诊断、高效维修，每项工作均有保障。',
-                    diagnostico: {
-                        title: '电脑诊断',
-                        desc: '专业解读故障代码、空气泄漏和电子线路。'
-                    },
-                    frenos: {
-                        title: '制动系统',
-                        desc: '精准更换刹车片、刹车带和手刹调整。'
-                    },
-                    mantenimiento: {
-                        title: '预防性维护',
-                        desc: '更换机油、滤清器、火花塞、发动机清洗和塑料养护。'
-                    },
-                    electromecanica: {
-                        title: '电机救援',
-                        desc: '发电机、起动机、线圈和短路保险丝。'
-                    }
-                },
-                garantia: {
-                    title: '完全透明',
-                    desc: '<strong>上门检查和维修</strong>的基础费用为<span class="price-tag">$35</span>。如果您当场委托我们进行维修，<span class="font-bold text-green-400">则不收取检查费</span>，仅收取维修费用。',
-                    badge1: '无隐藏费用',
-                    badge2: '人工保修'
-                },
-                cotizador: {
-                    title: '申请诊断',
-                    subtitle: '完成步骤，通过WhatsApp获得即时服务。',
-                    step1: '车辆',
-                    step2: '问题',
-                    step3: '位置',
-                    marca: '品牌',
-                    modelo: '型号',
-                    anio: '年份',
-                    siguiente: '下一步',
-                    anterior: '上一步',
-                    problema_label: '您的车辆有什么问题？',
-                    problema1: '汽车过热',
-                    problema2: '电池没电 / 无法启动',
-                    problema3: '仪表盘灯亮起（发动机检查）',
-                    problema4: '听到尖叫声 / 刹车问题',
-                    problema5: '电气故障（发电机、起动机、短路）',
-                    problema_otro: '预估损坏或其他问题',
-                    ubicacion_label: '输入您的区域',
-                    mostrar_ubicacion: '显示我的位置',
-                    enviar: '通过WhatsApp发送'
-                },
-                footer: {
-                    slogan: '随行的维修站',
-                    area: 'Arraiján，巴拿马西部'
-                }
-            }
-        };
+  <script>
+    'use strict';
 
-        // ============================================================
-        // 2. MAIN.JS - Lógica Editorial con Micro-interacciones
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            initLanguageSwitcher();
-            initSmoothScroll();
-            initNavbarScroll();
-            initIntersectionObserver();
-            initPerformanceTracking();
-            initWizard();
-            initMap();
-            initProblemButtons();
-            initLocationButton();
-            initFormSubmit();
-        });
+    const WHATSAPP_NUMBER = '50764773172';
+    const BASE_COORDS = [8.9472, -79.6558];
 
-        // ---- 2.1 SWITCH DE IDIOMAS ----
-        function initLanguageSwitcher() {
-            const langBtns = document.querySelectorAll('.lang-btn');
-            let currentLang = 'es';
+    const translations = {
+      es: {
+        pageTitle: 'Servimotriz PTY | Mecánico a Domicilio y Electromecánico en Panamá',
+        metaDescription: 'Mecánico a domicilio, electromecánico a domicilio y taller móvil en Arraiján, Panamá Oeste y Ciudad de Panamá.',
+        skip: 'Saltar al contenido',
+        languageLabel: 'Idioma',
+        nav: { about: 'Quiénes somos', services: 'Servicios', transparency: 'Costos', quote: 'Cotizador', whatsapp: 'WhatsApp' },
+        navMobile: { home: 'Inicio', services: 'Servicios', quote: 'Cotizar', call: 'Llamar' },
+        status: { loading: 'Consultando horario…', open: 'Abierto ahora', closed: 'Cerrado', openNote: 'Dentro del horario de atención.', closedNote: 'Responderemos en el próximo horario disponible.' },
+        hero: {
+          eyebrow: 'Mecánico y electromecánico a domicilio',
+          title: 'Servimotriz PTY: El taller que va contigo',
+          description: 'Más de 10 años de experiencia en mecánica general, electromecánica, diagnóstico computarizado y asistencia vial a domicilio.',
+          coverage: 'Atendemos Arraiján, Panamá Oeste y sectores de Ciudad de Panamá como Don Bosco, Las Acacias y Los Andes.',
+          cta: 'Cotizar mi servicio', secondary: 'Hablar por WhatsApp',
+          trust: ['Diagnóstico computarizado', 'Taller móvil', 'Asistencia vial', 'Atención multimarca']
+        },
+        hours: { title: 'Horario de atención', weekdays: 'Lunes a viernes', saturday: 'Sábados', sunday: 'Domingo', closed: 'Cerrado', contact: 'Contacto directo' },
+        about: {
+          eyebrow: 'Experiencia que llega hasta ti', title: 'Quiénes somos',
+          body: 'Somos un equipo altamente capacitado con más de 10 años de experiencia en mecánica general y electromecánica. Trabajamos con tecnología actual, diagnóstico computarizado y las herramientas adecuadas para atender las necesidades de su vehículo. Llegamos a su hogar, su trabajo o donde se encuentre, con asistencia vial y atención profesional.'
+        },
+        brands: { title: 'Trabajamos con múltiples marcas', subtitle: 'Servicio multimarca sujeto a diagnóstico, disponibilidad de piezas y tipo de reparación.' },
+        services: {
+          eyebrow: 'Taller móvil y asistencia vial',
+          title: 'Nuestros servicios de mecánica a domicilio',
+          intro: 'Realizamos mantenimiento preventivo, mantenimiento correctivo, diagnóstico computarizado, revisión de suspensión, frenos, mecánica ligera, refrigeración y trabajos de sistema eléctrico en Arraiján, Panamá Oeste y áreas de cobertura en Ciudad de Panamá.',
+          items: [
+            { icon: '🧰', title: 'Mantenimiento preventivo', description: 'Inspección periódica para reducir averías y mantener el vehículo en mejores condiciones.', bullets: ['Revisión general', 'Fluidos y filtros', 'Bujías', 'Recomendaciones de mantenimiento'] },
+            { icon: '🔧', title: 'Mantenimiento correctivo', description: 'Diagnóstico y reparación de fallas detectadas en componentes mecánicos o eléctricos.', bullets: ['Evaluación de la falla', 'Reparación según diagnóstico', 'Pruebas de funcionamiento'] },
+            { icon: '💻', title: 'Diagnóstico computarizado', description: 'Escáner automotriz e interpretación profesional de códigos, sensores, fugas de aire y fallas de cableado.', bullets: ['Check Engine', 'Lectura de códigos', 'Sensores', 'Pruebas eléctricas'] },
+            { icon: '🛞', title: 'Suspensión y frenos', description: 'Revisión de suspensión y trabajos de mecánica ligera relacionados con seguridad y control.', bullets: ['Reemplazo de tacos', 'Ajuste de frenos', 'Reemplazo de balinera', 'Ajuste de suspensión', 'Freno de mano'] },
+            { icon: '🛢️', title: 'Motor', description: 'Servicios básicos de mantenimiento para el funcionamiento y la protección del motor.', bullets: ['Cambio de aceite', 'Cambio de bujías', 'Filtro de motor', 'Filtro de aceite', 'Refrigerante de motor'] },
+            { icon: '❄️', title: 'Refrigeración', description: 'Revisión y reparación de componentes del sistema de aire acondicionado y ventilación.', bullets: ['Carga de gas', 'Cambio de filtro', 'Reemplazo de válvulas', 'Reemplazo de abanico'] },
+            { icon: '⚡', title: 'Sistema eléctrico', description: 'Electromecánica de rescate para fallas de encendido, carga, iluminación y sensores.', bullets: ['Pase de corriente', 'Alternador', 'Motor de arranque', 'Luces', 'Sensores', 'Fusibles y cortos'] }
+          ]
+        },
+        coverage: {
+          eyebrow: 'Cobertura local', title: 'Mecánico en Arraiján y electromecánico en Panamá Oeste',
+          body: 'Nuestro taller móvil atiende solicitudes en Arraiján, La Chorrera, Los Andes, Las Acacias, Don Bosco y otros sectores de Panamá según disponibilidad y tipo de servicio.',
+          areas: ['Arraiján', 'La Chorrera', 'Los Andes', 'Las Acacias', 'Don Bosco', 'Ciudad de Panamá'],
+          rescueTitle: 'Auxilio vial donde lo necesites',
+          rescueBody: 'Atendemos fallas de batería, alternador, motor de arranque, fusibles, sensores, luces de tablero, recalentamiento y problemas de frenos. La viabilidad del trabajo se confirma después de revisar el vehículo.',
+          cta: 'Solicitar revisión'
+        },
+        pricing: {
+          badge: 'Costos claros', title: 'Revisión y servicio a domicilio',
+          body: 'La revisión y servicio a domicilio tiene un costo base de $35. Si se realiza el trabajo de reparación con nosotros en el momento, NO se cobra el costo de la revisión; únicamente se paga el valor del trabajo realizado.',
+          note: 'El costo final puede variar según distancia, diagnóstico, repuestos y complejidad. Se confirma antes de iniciar la reparación.'
+        },
+        quote: {
+          eyebrow: 'Respuesta por WhatsApp', title: 'Cotizador Express',
+          intro: 'Completa los datos del vehículo, el problema y tu ubicación exacta. El formulario preparará un mensaje listo para enviar.',
+          step1Short: 'Vehículo', step2Short: 'Problema', step3Short: 'Ubicación',
+          step1Title: 'Datos del vehículo', step1Help: 'Escribe la información lo más exacta posible.',
+          step2Title: '¿Qué problema presenta?', step2Help: 'Selecciona la opción más cercana o escribe otro problema.',
+          step3Title: 'Tu ubicación exacta',
+          step3Help: 'El mapa inicia en Arraiján solo como referencia. Esa ubicación base nunca se enviará. Debes escribir tu dirección o compartir las coordenadas reales del dispositivo.'
+        },
+        form: {
+          brand: 'Marca', model: 'Modelo', year: 'Año', continue: 'Continuar', back: 'Atrás',
+          otherProblem: 'Daño estimado u otro problema',
+          otherProblemPlaceholder: 'Describe lo que ocurre, sonidos, luces del tablero o cuándo comenzó la falla.',
+          problemRequired: 'Selecciona o describe un problema.',
+          address: 'Dirección, barriada o punto de referencia',
+          addressPlaceholder: 'Ej.: Vacamonte, barriada…, casa…, cerca de…',
+          coordinatesTitle: 'Coordenadas exactas',
+          coordinatesHelp: 'Puedes obtenerlas por GPS o escribirlas manualmente. No usamos el punto inicial de Arraiján.',
+          getGps: 'Usar mi ubicación actual', latitude: 'Latitud', longitude: 'Longitud',
+          noLocation: 'Aún no se ha seleccionado una ubicación exacta.',
+          gpsLoading: 'Solicitando la ubicación precisa del dispositivo…',
+          gpsSuccess: 'Ubicación exacta obtenida. Precisión aproximada: {accuracy} m.',
+          gpsDenied: 'No se pudo acceder a la ubicación. Revisa el permiso del navegador o escribe las coordenadas manualmente.',
+          invalidCoordinates: 'Las coordenadas escritas no son válidas.',
+          manualCoordinates: 'Coordenadas manuales listas para enviar.',
+          mapNote: 'El enlace enviado por WhatsApp incluirá las coordenadas en texto y una URL HTTPS que puede abrirse desde aplicaciones de mapas.',
+          locationRequired: 'Escribe una dirección y agrega coordenadas válidas antes de enviar.',
+          send: 'Enviar solicitud por WhatsApp'
+        },
+        problems: [
+          { id: 'overheating', label: 'El carro se me está recalentando' },
+          { id: 'battery', label: 'Se le bajó la batería / No enciende' },
+          { id: 'checkEngine', label: 'Tiene una luz prendida en el tablero (Check Engine)' },
+          { id: 'brakes', label: 'Siento un chillido / Problema con los frenos' },
+          { id: 'electrical', label: 'Falla eléctrica (Alternador, arranque, corto)' }
+        ],
+        footer: { tagline: 'Mecánico a domicilio, electromecánico y taller móvil para Panamá Oeste y áreas de cobertura.', contact: 'Contacto' }
+      },
+      en: {
+        pageTitle: 'Servimotriz PTY | Mobile Mechanic and Auto Electrician in Panama',
+        metaDescription: 'Mobile mechanic, auto electrician and mobile workshop in Arraiján, West Panama and Panama City.',
+        skip: 'Skip to content', languageLabel: 'Language',
+        nav: { about: 'About us', services: 'Services', transparency: 'Pricing', quote: 'Quote', whatsapp: 'WhatsApp' },
+        navMobile: { home: 'Home', services: 'Services', quote: 'Quote', call: 'Call' },
+        status: { loading: 'Checking hours…', open: 'Open now', closed: 'Closed', openNote: 'Currently within business hours.', closedNote: 'We will reply during the next available hours.' },
+        hero: {
+          eyebrow: 'Mobile mechanic and auto electrician', title: 'Servimotriz PTY: The workshop that comes with you',
+          description: 'Over 10 years of experience in general mechanics, automotive electrical work, computerized diagnostics and roadside assistance.',
+          coverage: 'We serve Arraiján, West Panama and Panama City areas such as Don Bosco, Las Acacias and Los Andes.',
+          cta: 'Request a quote', secondary: 'Chat on WhatsApp',
+          trust: ['Computerized diagnostics', 'Mobile workshop', 'Roadside assistance', 'Multi-brand service']
+        },
+        hours: { title: 'Business hours', weekdays: 'Monday to Friday', saturday: 'Saturday', sunday: 'Sunday', closed: 'Closed', contact: 'Direct contact' },
+        about: {
+          eyebrow: 'Experience delivered to you', title: 'About us',
+          body: 'We are a highly trained team with more than 10 years of experience in general mechanics and automotive electrical work. We use current technology, computerized diagnostics and the right tools to take care of your vehicle. We come to your home, workplace or wherever you are, offering roadside assistance and professional service.'
+        },
+        brands: { title: 'We work with multiple vehicle brands', subtitle: 'Multi-brand service is subject to diagnosis, parts availability and type of repair.' },
+        services: {
+          eyebrow: 'Mobile workshop and roadside assistance', title: 'Our mobile mechanic services',
+          intro: 'We provide preventive maintenance, corrective maintenance, computerized diagnostics, suspension inspections, brakes, light mechanical work, cooling and automotive electrical services in Arraiján, West Panama and selected areas of Panama City.',
+          items: [
+            { icon: '🧰', title: 'Preventive maintenance', description: 'Routine inspections designed to reduce breakdowns and keep the vehicle in better condition.', bullets: ['General inspection', 'Fluids and filters', 'Spark plugs', 'Maintenance recommendations'] },
+            { icon: '🔧', title: 'Corrective maintenance', description: 'Diagnosis and repair of identified mechanical or electrical failures.', bullets: ['Fault evaluation', 'Repair after diagnosis', 'Operating tests'] },
+            { icon: '💻', title: 'Computerized diagnostics', description: 'Automotive scanning and professional interpretation of codes, sensors, air leaks and wiring faults.', bullets: ['Check Engine', 'Code reading', 'Sensors', 'Electrical tests'] },
+            { icon: '🛞', title: 'Suspension and brakes', description: 'Suspension checks and light mechanical work related to safety and control.', bullets: ['Brake pad replacement', 'Brake adjustment', 'Bearing replacement', 'Suspension adjustment', 'Parking brake'] },
+            { icon: '🛢️', title: 'Engine', description: 'Basic maintenance services for engine operation and protection.', bullets: ['Oil change', 'Spark plug replacement', 'Engine air filter', 'Oil filter', 'Engine coolant'] },
+            { icon: '❄️', title: 'Cooling and A/C', description: 'Inspection and repair of air-conditioning and ventilation components.', bullets: ['Gas recharge', 'Filter replacement', 'Valve replacement', 'Fan replacement'] },
+            { icon: '⚡', title: 'Electrical system', description: 'Emergency auto-electrical service for starting, charging, lights and sensors.', bullets: ['Jump start', 'Alternator', 'Starter motor', 'Lights', 'Sensors', 'Fuses and short circuits'] }
+          ]
+        },
+        coverage: {
+          eyebrow: 'Local coverage', title: 'Mobile mechanic in Arraiján and auto electrician in West Panama',
+          body: 'Our mobile workshop serves Arraiján, La Chorrera, Los Andes, Las Acacias, Don Bosco and other areas of Panama depending on availability and the required service.',
+          areas: ['Arraiján', 'La Chorrera', 'Los Andes', 'Las Acacias', 'Don Bosco', 'Panama City'],
+          rescueTitle: 'Roadside help where you need it',
+          rescueBody: 'We handle battery, alternator, starter motor, fuse, sensor, dashboard light, overheating and brake problems. Feasibility is confirmed after inspecting the vehicle.',
+          cta: 'Request an inspection'
+        },
+        pricing: {
+          badge: 'Clear pricing', title: 'Mobile inspection and service',
+          body: 'The mobile inspection and service has a base cost of $35. If we carry out the repair immediately, the inspection fee is NOT charged; you only pay for the completed work.',
+          note: 'The final amount may vary depending on distance, diagnosis, parts and complexity. It is confirmed before work begins.'
+        },
+        quote: {
+          eyebrow: 'Reply through WhatsApp', title: 'Express Quote',
+          intro: 'Enter the vehicle information, problem and your exact location. The form will prepare a message ready to send.',
+          step1Short: 'Vehicle', step2Short: 'Problem', step3Short: 'Location',
+          step1Title: 'Vehicle information', step1Help: 'Enter the information as accurately as possible.',
+          step2Title: 'What problem are you experiencing?', step2Help: 'Choose the closest option or describe another problem.',
+          step3Title: 'Your exact location',
+          step3Help: 'The map starts in Arraiján only as a visual reference. That starting point is never sent. Enter your address or share the device’s real coordinates.'
+        },
+        form: {
+          brand: 'Make', model: 'Model', year: 'Year', continue: 'Continue', back: 'Back',
+          otherProblem: 'Estimated damage or another problem',
+          otherProblemPlaceholder: 'Describe what is happening, sounds, dashboard lights or when the problem started.',
+          problemRequired: 'Select or describe a problem.',
+          address: 'Address, neighborhood or landmark', addressPlaceholder: 'Example: neighborhood, house number, nearby landmark…',
+          coordinatesTitle: 'Exact coordinates', coordinatesHelp: 'Get them from GPS or enter them manually. We do not use the initial Arraiján marker.',
+          getGps: 'Use my current location', latitude: 'Latitude', longitude: 'Longitude', noLocation: 'No exact location has been selected yet.',
+          gpsLoading: 'Requesting the device’s precise location…', gpsSuccess: 'Exact location received. Approximate accuracy: {accuracy} m.',
+          gpsDenied: 'Location could not be accessed. Check your browser permission or enter the coordinates manually.', invalidCoordinates: 'The entered coordinates are not valid.', manualCoordinates: 'Manual coordinates are ready to send.',
+          mapNote: 'The WhatsApp message will include plain coordinates and an HTTPS URL that can be opened from mapping applications.',
+          locationRequired: 'Enter an address and valid coordinates before sending.', send: 'Send request through WhatsApp'
+        },
+        problems: [
+          { id: 'overheating', label: 'My car is overheating' },
+          { id: 'battery', label: 'The battery is dead / It will not start' },
+          { id: 'checkEngine', label: 'A dashboard light is on (Check Engine)' },
+          { id: 'brakes', label: 'I hear squealing / Brake problem' },
+          { id: 'electrical', label: 'Electrical failure (alternator, starter, short circuit)' }
+        ],
+        footer: { tagline: 'Mobile mechanic, auto electrician and mobile workshop for West Panama and covered areas.', contact: 'Contact' }
+      },
+      fr: {
+        pageTitle: 'Servimotriz PTY | Mécanicien à domicile et électromécanicien au Panama',
+        metaDescription: 'Mécanicien à domicile, électromécanicien et atelier mobile à Arraiján, dans l\'ouest du Panama et à Panama City.',
+        skip: 'Aller au contenu', languageLabel: 'Langue',
+        nav: { about: 'Qui sommes-nous', services: 'Services', transparency: 'Tarifs', quote: 'Devis', whatsapp: 'WhatsApp' },
+        navMobile: { home: 'Accueil', services: 'Services', quote: 'Devis', call: 'Appeler' },
+        status: { loading: 'Vérification des horaires…', open: 'Ouvert maintenant', closed: 'Fermé', openNote: 'Actuellement en horaires d\'ouverture.', closedNote: 'Nous répondrons au prochain horaire disponible.' },
+        hero: {
+          eyebrow: 'Mécanicien et électromécanicien à domicile', title: 'Servimotriz PTY : l\'atelier qui se déplace avec vous',
+          description: 'Plus de 10 ans d\'expérience en mécanique générale, électromécanique automobile, diagnostic informatisé et assistance routière.',
+          coverage: 'Nous intervenons à Arraiján, dans l\'ouest du Panama et dans des secteurs de Panama City comme Don Bosco, Las Acacias et Los Andes.',
+          cta: 'Demander un devis', secondary: 'Discuter sur WhatsApp',
+          trust: ['Diagnostic informatisé', 'Atelier mobile', 'Assistance routière', 'Toutes marques']
+        },
+        hours: { title: 'Horaires d\'ouverture', weekdays: 'Lundi au vendredi', saturday: 'Samedi', sunday: 'Dimanche', closed: 'Fermé', contact: 'Contact direct' },
+        about: {
+          eyebrow: 'Une expertise qui vient à vous', title: 'Qui sommes-nous',
+          body: 'Nous sommes une équipe hautement qualifiée avec plus de 10 ans d\'expérience en mécanique générale et en électromécanique automobile. Nous utilisons des technologies actuelles, un diagnostic informatisé et les outils adaptés pour répondre aux besoins de votre véhicule. Nous nous déplaçons chez vous, sur votre lieu de travail ou où que vous soyez, avec assistance routière et un service professionnel.'
+        },
+        brands: { title: 'Nous travaillons avec de nombreuses marques', subtitle: 'Service multimarque selon le diagnostic, la disponibilité des pièces et le type de réparation.' },
+        services: {
+          eyebrow: 'Atelier mobile et assistance routière', title: 'Nos services de mécanique à domicile',
+          intro: 'Nous réalisons l\'entretien préventif, l\'entretien correctif, le diagnostic informatisé, le contrôle de la suspension, des freins, des travaux de mécanique légère, de climatisation et du système électrique à Arraiján, dans l\'ouest du Panama et dans certaines zones de Panama City.',
+          items: [
+            { icon: '🧰', title: 'Entretien préventif', description: 'Inspection périodique afin de réduire les pannes et garder le véhicule en bon état.', bullets: ['Contrôle général', 'Fluides et filtres', 'Bougies', 'Recommandations d\'entretien'] },
+            { icon: '🔧', title: 'Entretien correctif', description: 'Diagnostic et réparation des pannes mécaniques ou électriques détectées.', bullets: ['Évaluation de la panne', 'Réparation selon le diagnostic', 'Essais de fonctionnement'] },
+            { icon: '💻', title: 'Diagnostic informatisé', description: 'Scanner automobile et interprétation professionnelle des codes, capteurs, fuites d\'air et défauts de câblage.', bullets: ['Voyant moteur', 'Lecture des codes', 'Capteurs', 'Tests électriques'] },
+            { icon: '🛞', title: 'Suspension et freins', description: 'Contrôle de la suspension et travaux de mécanique légère liés à la sécurité.', bullets: ['Remplacement des plaquettes', 'Réglage des freins', 'Remplacement de roulement', 'Réglage de la suspension', 'Frein à main'] },
+            { icon: '🛢️', title: 'Moteur', description: 'Services d\'entretien de base pour le bon fonctionnement et la protection du moteur.', bullets: ['Vidange', 'Remplacement des bougies', 'Filtre à air moteur', 'Filtre à huile', 'Liquide de refroidissement'] },
+            { icon: '❄️', title: 'Climatisation', description: 'Inspection et réparation des composants du système de climatisation et de ventilation.', bullets: ['Recharge de gaz', 'Remplacement de filtre', 'Remplacement de vanne', 'Remplacement de ventilateur'] },
+            { icon: '⚡', title: 'Système électrique', description: 'Électromécanique de dépannage pour les pannes de démarrage, de charge, d\'éclairage et de capteurs.', bullets: ['Démarrage assisté', 'Alternateur', 'Démarreur', 'Éclairage', 'Capteurs', 'Fusibles et courts-circuits'] }
+          ]
+        },
+        coverage: {
+          eyebrow: 'Zone d\'intervention', title: 'Mécanicien à Arraiján et électromécanicien dans l\'ouest du Panama',
+          body: 'Notre atelier mobile intervient à Arraiján, La Chorrera, Los Andes, Las Acacias, Don Bosco et d\'autres secteurs du Panama selon la disponibilité et le type de service.',
+          areas: ['Arraiján', 'La Chorrera', 'Los Andes', 'Las Acacias', 'Don Bosco', 'Panama City'],
+          rescueTitle: 'Assistance routière où que vous soyez',
+          rescueBody: 'Nous traitons les pannes de batterie, d\'alternateur, de démarreur, de fusibles, de capteurs, de voyants au tableau de bord, de surchauffe et de freins. La faisabilité est confirmée après inspection du véhicule.',
+          cta: 'Demander une inspection'
+        },
+        pricing: {
+          badge: 'Tarifs clairs', title: 'Inspection et service à domicile',
+          body: 'L\'inspection et le service à domicile ont un coût de base de 35 $. Si la réparation est effectuée immédiatement avec nous, les frais d\'inspection ne sont PAS facturés ; vous ne payez que le travail réalisé.',
+          note: 'Le montant final peut varier selon la distance, le diagnostic, les pièces et la complexité. Il est confirmé avant le début des travaux.'
+        },
+        quote: {
+          eyebrow: 'Réponse via WhatsApp', title: 'Devis Express',
+          intro: 'Renseignez les informations du véhicule, le problème et votre position exacte. Le formulaire préparera un message prêt à envoyer.',
+          step1Short: 'Véhicule', step2Short: 'Problème', step3Short: 'Position',
+          step1Title: 'Informations du véhicule', step1Help: 'Indiquez les informations le plus précisément possible.',
+          step2Title: 'Quel problème rencontrez-vous ?', step2Help: 'Choisissez l\'option la plus proche ou décrivez un autre problème.',
+          step3Title: 'Votre position exacte',
+          step3Help: 'La carte démarre à Arraiján uniquement à titre de repère visuel. Ce point de départ n\'est jamais envoyé. Indiquez votre adresse ou partagez les coordonnées réelles de l\'appareil.'
+        },
+        form: {
+          brand: 'Marque', model: 'Modèle', year: 'Année', continue: 'Continuer', back: 'Retour',
+          otherProblem: 'Dommage estimé ou autre problème',
+          otherProblemPlaceholder: 'Décrivez ce qui se passe, les bruits, les voyants du tableau de bord ou le début de la panne.',
+          problemRequired: 'Sélectionnez ou décrivez un problème.',
+          address: 'Adresse, quartier ou point de repère', addressPlaceholder: 'Ex. : quartier, numéro de maison, point de repère…',
+          coordinatesTitle: 'Coordonnées exactes', coordinatesHelp: 'Obtenez-les par GPS ou saisissez-les manuellement. Nous n\'utilisons pas le repère initial d\'Arraiján.',
+          getGps: 'Utiliser ma position actuelle', latitude: 'Latitude', longitude: 'Longitude', noLocation: 'Aucune position exacte n\'a encore été sélectionnée.',
+          gpsLoading: 'Demande de la position précise de l\'appareil…', gpsSuccess: 'Position exacte obtenue. Précision approximative : {accuracy} m.',
+          gpsDenied: 'Impossible d\'accéder à la position. Vérifiez l\'autorisation du navigateur ou saisissez les coordonnées manuellement.', invalidCoordinates: 'Les coordonnées saisies ne sont pas valides.', manualCoordinates: 'Coordonnées manuelles prêtes à être envoyées.',
+          mapNote: 'Le message WhatsApp inclura les coordonnées en texte ainsi qu\'une URL HTTPS pouvant être ouverte depuis une application de cartes.',
+          locationRequired: 'Indiquez une adresse et des coordonnées valides avant d\'envoyer.', send: 'Envoyer la demande via WhatsApp'
+        },
+        problems: [
+          { id: 'overheating', label: 'Ma voiture surchauffe' },
+          { id: 'battery', label: 'La batterie est à plat / Elle ne démarre pas' },
+          { id: 'checkEngine', label: 'Un voyant est allumé au tableau de bord (Check Engine)' },
+          { id: 'brakes', label: 'J\'entends un grincement / Problème de freins' },
+          { id: 'electrical', label: 'Panne électrique (alternateur, démarreur, court-circuit)' }
+        ],
+        footer: { tagline: 'Mécanicien à domicile, électromécanicien et atelier mobile pour l\'ouest du Panama et les zones couvertes.', contact: 'Contact' }
+      },
+      zh: {
+        pageTitle: 'Servimotriz PTY | 巴拿马上门汽车维修与汽车电工',
+        metaDescription: '在阿赖汉、西巴拿马省和巴拿马城提供上门汽车维修、汽车电工和移动维修服务。',
+        skip: '跳到主要内容', languageLabel: '语言',
+        nav: { about: '关于我们', services: '服务项目', transparency: '费用', quote: '快速报价', whatsapp: 'WhatsApp' },
+        navMobile: { home: '首页', services: '服务', quote: '报价', call: '致电' },
+        status: { loading: '正在查询营业时间…', open: '正在营业', closed: '已打烊', openNote: '目前处于营业时间内。', closedNote: '我们会在下一个营业时段回复。' },
+        hero: {
+          eyebrow: '上门汽车维修与汽车电工', title: 'Servimotriz PTY：跟着您走的移动修车厂',
+          description: '超过10年汽车机械、汽车电路、电脑诊断和道路救援经验。',
+          coverage: '服务范围包括阿赖汉、西巴拿马省，以及巴拿马城的 Don Bosco、Las Acacias 和 Los Andes 等区域。',
+          cta: '获取服务报价', secondary: '通过 WhatsApp 联系',
+          trust: ['电脑故障诊断', '移动修车服务', '道路救援', '多品牌车辆服务']
+        },
+        hours: { title: '营业时间', weekdays: '周一至周五', saturday: '周六', sunday: '周日', closed: '休息', contact: '直接联系' },
+        about: {
+          eyebrow: '把专业经验带到您身边', title: '关于我们',
+          body: '我们是一支训练有素的团队，在汽车机械和汽车电路领域拥有超过10年的经验。我们使用现代技术、电脑诊断设备和合适的工具来解决车辆问题。无论您在家中、工作地点或道路上，我们都可以上门提供专业维修与道路救援。'
+        },
+        brands: { title: '我们服务多种汽车品牌', subtitle: '是否可以维修取决于故障诊断、零件供应和维修类型。' },
+        services: {
+          eyebrow: '移动修车与道路救援', title: '我们的上门汽车维修服务',
+          intro: '我们在阿赖汉、西巴拿马省及巴拿马城部分区域提供预防性保养、故障维修、电脑诊断、悬挂检查、刹车、轻型机械、制冷和汽车电路服务。',
+          items: [
+            { icon: '🧰', title: '预防性保养', description: '通过定期检查减少故障，并保持车辆良好状态。', bullets: ['车辆综合检查', '油液与滤芯', '火花塞', '保养建议'] },
+            { icon: '🔧', title: '故障维修', description: '诊断并维修已经发现的机械或电路故障。', bullets: ['故障评估', '按诊断结果维修', '运行测试'] },
+            { icon: '💻', title: '电脑诊断', description: '使用汽车扫描仪，并专业分析故障码、传感器、漏气和线路问题。', bullets: ['发动机故障灯', '读取故障码', '传感器', '电路测试'] },
+            { icon: '🛞', title: '悬挂与刹车', description: '检查悬挂系统，并处理与安全和操控相关的轻型机械问题。', bullets: ['更换刹车片', '调整刹车', '更换轴承', '调整悬挂', '手刹'] },
+            { icon: '🛢️', title: '发动机保养', description: '帮助发动机正常运行并获得保护的基础保养服务。', bullets: ['更换机油', '更换火花塞', '发动机空气滤芯', '机油滤芯', '发动机冷却液'] },
+            { icon: '❄️', title: '制冷与空调', description: '检查和维修空调及通风系统部件。', bullets: ['加注冷媒', '更换滤芯', '更换阀门', '更换风扇'] },
+            { icon: '⚡', title: '汽车电路系统', description: '处理启动、充电、灯光和传感器等紧急电路故障。', bullets: ['搭电启动', '发电机', '启动马达', '灯光', '传感器', '保险丝与短路'] }
+          ]
+        },
+        coverage: {
+          eyebrow: '本地服务范围', title: '阿赖汉上门机械师与西巴拿马汽车电工',
+          body: '我们的移动修车服务覆盖阿赖汉、La Chorrera、Los Andes、Las Acacias、Don Bosco 及巴拿马其他区域，具体取决于服务类型和时间安排。',
+          areas: ['阿赖汉', 'La Chorrera', 'Los Andes', 'Las Acacias', 'Don Bosco', '巴拿马城'],
+          rescueTitle: '需要时提供道路救援',
+          rescueBody: '可处理电瓶、发电机、启动马达、保险丝、传感器、仪表盘警示灯、发动机过热和刹车问题。是否可现场维修需要检查车辆后确认。',
+          cta: '申请车辆检查'
+        },
+        pricing: {
+          badge: '费用透明', title: '上门检查与服务',
+          body: '上门检查和服务的基础费用为35美元。如果我们当场完成维修，则不收取检查费，您只需支付实际完成的维修费用。',
+          note: '最终费用可能因距离、诊断结果、零件和复杂程度而变化。开始维修前会先确认。'
+        },
+        quote: {
+          eyebrow: '通过 WhatsApp 回复', title: '快速报价',
+          intro: '填写车辆信息、故障情况和您的准确位置，系统会生成可直接发送的 WhatsApp 消息。',
+          step1Short: '车辆', step2Short: '故障', step3Short: '位置',
+          step1Title: '车辆信息', step1Help: '请尽量准确填写。',
+          step2Title: '车辆出现了什么问题？', step2Help: '请选择最接近的选项，或填写其他问题。',
+          step3Title: '您的准确位置',
+          step3Help: '地图初始显示阿赖汉，仅作为视觉参考。该初始位置绝不会被发送。请填写地址或分享设备的真实坐标。'
+        },
+        form: {
+          brand: '品牌', model: '车型', year: '年份', continue: '继续', back: '返回',
+          otherProblem: '估计故障或其他问题', otherProblemPlaceholder: '请描述故障现象、声音、仪表盘警示灯或问题开始时间。', problemRequired: '请选择或描述一个问题。',
+          address: '地址、社区或附近地标', addressPlaceholder: '例如：社区、门牌号、附近地标…',
+          coordinatesTitle: '准确坐标', coordinatesHelp: '可以通过 GPS 获取，也可以手动输入。我们不会使用阿赖汉的初始标记。',
+          getGps: '使用我的当前位置', latitude: '纬度', longitude: '经度', noLocation: '尚未选择准确位置。',
+          gpsLoading: '正在请求设备的准确位置…', gpsSuccess: '已获取准确位置，估计精度：{accuracy} 米。',
+          gpsDenied: '无法访问位置。请检查浏览器权限，或手动填写坐标。', invalidCoordinates: '填写的坐标无效。', manualCoordinates: '手动坐标已准备好发送。',
+          mapNote: 'WhatsApp 消息将包含文本坐标和 HTTPS 地图链接，可从地图应用打开。',
+          locationRequired: '发送前请填写地址并添加有效坐标。', send: '通过 WhatsApp 发送申请'
+        },
+        problems: [
+          { id: 'overheating', label: '车辆正在过热' },
+          { id: 'battery', label: '电瓶没电 / 无法启动' },
+          { id: 'checkEngine', label: '仪表盘警示灯亮起（Check Engine）' },
+          { id: 'brakes', label: '有尖锐异响 / 刹车问题' },
+          { id: 'electrical', label: '电路故障（发电机、启动马达、短路）' }
+        ],
+        footer: { tagline: '为西巴拿马省及服务区域提供上门机械、汽车电工和移动修车服务。', contact: '联系方式' }
+      }
+    };
 
-            langBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const lang = this.dataset.lang;
-                    if (lang === currentLang) return;
+    const canonicalProblemsEs = {
+      overheating: 'El carro se me está recalentando',
+      battery: 'Se le bajó la batería / No enciende',
+      checkEngine: 'Tiene una luz prendida en el tablero (Check Engine)',
+      brakes: 'Siento un chillido / Problema con los frenos',
+      electrical: 'Falla eléctrica (Alternador, arranque, corto)'
+    };
 
-                    document.querySelectorAll('[data-i18n]').forEach(el => {
-                        el.style.opacity = '0';
-                        el.style.transform = 'translateY(8px)';
-                    });
+    let currentLang = 'es';
+    let currentStep = 1;
+    let selectedProblemId = '';
+    let map;
+    let baseMarker;
+    let userMarker = null;
+    let userAccuracyCircle = null;
+    let locationSource = null;
 
-                    setTimeout(() => {
-                        applyTranslations(lang);
-                        currentLang = lang;
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-                        langBtns.forEach(b => {
-                            b.classList.remove('lang-btn-active', 'lang-btn-inactive');
-                            b.classList.add(b.dataset.lang === lang ? 'lang-btn-active' : 'lang-btn-inactive');
-                        });
+    function t(path) {
+      return path.split('.').reduce((obj, key) => obj && obj[key], translations[currentLang]) ?? path;
+    }
 
-                        document.querySelectorAll('[data-i18n]').forEach((el, i) => {
-                            setTimeout(() => {
-                                el.style.opacity = '1';
-                                el.style.transform = 'translateY(0)';
-                            }, 50 * i);
-                        });
+    function applyTranslations() {
+      const dict = translations[currentLang];
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : currentLang;
+      document.title = dict.pageTitle;
+      $('meta[name="description"]').setAttribute('content', dict.metaDescription);
 
-                        document.documentElement.lang = lang;
-                    }, 200);
-                });
-            });
+      $$('[data-i18n]').forEach((el) => {
+        const value = t(el.dataset.i18n);
+        if (typeof value === 'string') el.textContent = value;
+      });
+
+      $$('[data-i18n-placeholder]').forEach((el) => {
+        el.placeholder = t(el.dataset.i18nPlaceholder);
+      });
+
+      renderHeroTrust();
+      renderBrands();
+      renderServices();
+      renderCoverage();
+      renderProblemOptions();
+      updateStatus();
+      updateLocationFeedback();
+
+      const baseLabel = { es: 'Base operativa de referencia: Arraiján', en: 'Reference operating base: Arraiján', fr: 'Base opérationnelle de référence : Arraiján', zh: '参考运营点：阿赖汉' }[currentLang];
+      const userLabel = { es: 'Ubicación exacta del cliente', en: 'Customer exact location', fr: 'Position exacte du client', zh: '客户准确位置' }[currentLang];
+      if (baseMarker) baseMarker.bindPopup(baseLabel);
+      if (userMarker) userMarker.bindPopup(userLabel);
+    }
+
+    function renderHeroTrust() {
+      $('#heroTrust').innerHTML = translations[currentLang].hero.trust.map(item => `<span class="rounded-full border border-white/15 bg-white/5 px-3 py-2">✓ ${escapeHtml(item)}</span>`).join('');
+    }
+
+    function renderBrands() {
+      const brands = ['Toyota', 'Nissan', 'Hyundai', 'Kia', 'Honda', 'Mazda', 'Chevrolet', 'Ford', 'Mitsubishi', 'Suzuki'];
+      $('#brandsList').innerHTML = brands.map(brand => `<span class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-black text-slate-200">${brand}</span>`).join('');
+    }
+
+    function renderServices() {
+      $('#servicesGrid').innerHTML = translations[currentLang].services.items.map(item => `
+        <article class="service-card rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900" itemscope itemtype="https://schema.org/Service">
+          <meta itemprop="name" content="${escapeHtml(item.title)}">
+          <meta itemprop="provider" content="Servimotriz PTY">
+          <div class="grid h-12 w-12 place-items-center rounded-xl bg-yellow-100 text-2xl dark:bg-yellow-400/15" aria-hidden="true">${item.icon}</div>
+          <h3 class="mt-5 text-xl font-black">${escapeHtml(item.title)}</h3>
+          <p class="mt-3 leading-6 text-slate-600 dark:text-slate-400" itemprop="description">${escapeHtml(item.description)}</p>
+          <ul class="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+            ${item.bullets.map(bullet => `<li class="flex gap-2"><span class="font-black text-yellow-600 dark:text-yellow-400">•</span><span>${escapeHtml(bullet)}</span></li>`).join('')}
+          </ul>
+        </article>`).join('');
+    }
+
+    function renderCoverage() {
+      $('#coverageList').innerHTML = translations[currentLang].coverage.areas.map(area => `<span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-300">${escapeHtml(area)}</span>`).join('');
+    }
+
+    function renderProblemOptions() {
+      $('#problemOptions').innerHTML = translations[currentLang].problems.map(problem => `
+        <button type="button" class="problem-option focus-ring rounded-xl border border-slate-300 bg-white px-4 py-4 text-left font-bold hover:border-yellow-500 hover:bg-yellow-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700" data-problem-id="${problem.id}" aria-pressed="${selectedProblemId === problem.id}">
+          ${escapeHtml(problem.label)}
+        </button>`).join('');
+    }
+
+    function getPanamaParts() {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Panama',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23'
+      }).formatToParts(new Date());
+      const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+      return { day: { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[values.weekday], hour: Number(values.hour), minute: Number(values.minute) };
+    }
+
+    function updateStatus() {
+      const { day, hour, minute } = getPanamaParts();
+      const totalMinutes = hour * 60 + minute;
+      const isWeekdayOpen = day >= 1 && day <= 5 && totalMinutes >= 480 && totalMinutes < 1080;
+      const isSaturdayOpen = day === 6 && totalMinutes >= 540 && totalMinutes < 1020;
+      const isOpen = isWeekdayOpen || isSaturdayOpen;
+      const badge = $('#statusBadge');
+
+      if (isOpen) {
+        // Prominent treatment when open — this is the actionable, good-news state.
+        badge.className = 'status-badge focus-ring mb-6 inline-flex min-h-14 w-full max-w-md flex-col items-center justify-center rounded-2xl bg-green-600 px-6 py-3.5 text-center text-base font-black uppercase tracking-wide text-white shadow-xl hover:bg-green-500 sm:text-lg';
+        badge.innerHTML = `<span class="flex items-center gap-2"><span class="h-2.5 w-2.5 animate-pulse rounded-full bg-white" aria-hidden="true"></span>${t('status.open')}</span><span class="mt-1 text-xs font-semibold normal-case tracking-normal opacity-90">${t('status.openNote')}</span>`;
+      } else {
+        // Subtle, low-visual-weight treatment when closed — informational, not alarming.
+        badge.className = 'status-badge focus-ring mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-left text-xs font-bold uppercase tracking-wide text-slate-300 hover:bg-white/10 sm:text-sm';
+        badge.innerHTML = `<span class="h-2 w-2 rounded-full bg-rose-400" aria-hidden="true"></span><span>${t('status.closed')} — ${t('status.closedNote')}</span>`;
+      }
+    }
+
+    function initializeMap() {
+      map = L.map('map', { scrollWheelZoom: false }).setView(BASE_COORDS, 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+      baseMarker = L.marker(BASE_COORDS, { opacity: .72 }).addTo(map).bindPopup('Base operativa de referencia: Arraiján');
+    }
+
+    function showStep(step) {
+      currentStep = step;
+      $$('.wizard-panel').forEach(panel => { panel.hidden = Number(panel.dataset.step) !== step; });
+      $$('.step-indicator').forEach(indicator => {
+        const stepNumber = Number(indicator.dataset.stepIndicator);
+        const circle = indicator.querySelector('span');
+        indicator.classList.toggle('text-slate-400', stepNumber > step);
+        indicator.classList.toggle('text-slate-900', stepNumber <= step);
+        circle.className = `grid h-8 w-8 shrink-0 place-items-center rounded-full ${stepNumber <= step ? 'bg-yellow-400 text-slate-950' : 'bg-slate-200 text-slate-500 dark:bg-slate-700 dark:text-slate-400'}`;
+      });
+      if (step === 3 && map) setTimeout(() => map.invalidateSize(), 100);
+      $('#cotizador').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function validateStep1() {
+      const fields = [$('#carBrand'), $('#carModel'), $('#carYear')];
+      let valid = true;
+      fields.forEach(field => {
+        field.classList.remove('border-red-500', 'ring-2', 'ring-red-100');
+        if (!field.value.trim() || (field.id === 'carYear' && !/^\d{4}$/.test(field.value.trim()))) {
+          field.classList.add('border-red-500', 'ring-2', 'ring-red-100');
+          valid = false;
+        }
+      });
+      if (!valid) fields.find(field => field.classList.contains('border-red-500'))?.focus();
+      return valid;
+    }
+
+    function validateStep2() {
+      const valid = Boolean(selectedProblemId || $('#problemDetails').value.trim());
+      $('#problemError').classList.toggle('hidden', valid);
+      if (!valid) $('#problemDetails').focus();
+      return valid;
+    }
+
+    function parseCoordinate(value) {
+      if (typeof value !== 'string') return NaN;
+      return Number(value.trim().replace(',', '.'));
+    }
+
+    function getValidCoordinates() {
+      const lat = parseCoordinate($('#latitude').value);
+      const lng = parseCoordinate($('#longitude').value);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+      return { lat, lng };
+    }
+
+    function updateMapToUser(lat, lng, accuracy = null) {
+      if (userMarker) map.removeLayer(userMarker);
+      if (userAccuracyCircle) map.removeLayer(userAccuracyCircle);
+      const userLabel = { es: 'Ubicación exacta del cliente', en: 'Customer exact location', fr: 'Position exacte du client', zh: '客户准确位置' }[currentLang];
+      userMarker = L.marker([lat, lng]).addTo(map).bindPopup(userLabel).openPopup();
+      if (accuracy && Number.isFinite(accuracy)) {
+        userAccuracyCircle = L.circle([lat, lng], { radius: accuracy, weight: 1, fillOpacity: .08 }).addTo(map);
+      }
+      map.setView([lat, lng], 17);
+    }
+
+    function updateLocationFeedback(customMessage = '') {
+      const feedback = $('#locationFeedback');
+      const coords = getValidCoordinates();
+      if (customMessage) {
+        feedback.textContent = customMessage;
+        return;
+      }
+      if (!coords) {
+        feedback.textContent = t('form.noLocation');
+        return;
+      }
+      feedback.textContent = locationSource === 'gps' ? t('form.gpsSuccess').replace('{accuracy}', '—') : t('form.manualCoordinates');
+    }
+
+    function useCurrentLocation() {
+      const feedback = $('#locationFeedback');
+      feedback.textContent = t('form.gpsLoading');
+      $('#getLocationBtn').disabled = true;
+      $('#getLocationBtn').classList.add('opacity-60', 'cursor-wait');
+
+      if (!navigator.geolocation) {
+        feedback.textContent = t('form.gpsDenied');
+        $('#getLocationBtn').disabled = false;
+        $('#getLocationBtn').classList.remove('opacity-60', 'cursor-wait');
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          $('#latitude').value = latitude.toFixed(7);
+          $('#longitude').value = longitude.toFixed(7);
+          locationSource = 'gps';
+          feedback.textContent = t('form.gpsSuccess').replace('{accuracy}', Math.round(accuracy));
+          updateMapToUser(latitude, longitude, accuracy);
+          $('#locationError').classList.add('hidden');
+          $('#getLocationBtn').disabled = false;
+          $('#getLocationBtn').classList.remove('opacity-60', 'cursor-wait');
+        },
+        () => {
+          feedback.textContent = t('form.gpsDenied');
+          $('#getLocationBtn').disabled = false;
+          $('#getLocationBtn').classList.remove('opacity-60', 'cursor-wait');
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+      );
+    }
+
+    function handleManualCoordinates() {
+      const coords = getValidCoordinates();
+      if (!$('#latitude').value.trim() && !$('#longitude').value.trim()) {
+        locationSource = null;
+        updateLocationFeedback();
+        return;
+      }
+      if (!coords) {
+        locationSource = null;
+        $('#locationFeedback').textContent = t('form.invalidCoordinates');
+        return;
+      }
+      locationSource = 'manual';
+      $('#locationFeedback').textContent = t('form.manualCoordinates');
+      updateMapToUser(coords.lat, coords.lng);
+      $('#locationError').classList.add('hidden');
+    }
+
+    function validateStep3() {
+      const address = $('#locationText').value.trim();
+      const coords = getValidCoordinates();
+      const valid = Boolean(address && coords);
+      $('#locationText').classList.toggle('border-red-500', !address);
+      $('#latitude').classList.toggle('border-red-500', !coords);
+      $('#longitude').classList.toggle('border-red-500', !coords);
+      $('#locationError').classList.toggle('hidden', valid);
+      if (!address) $('#locationText').focus();
+      else if (!coords) $('#latitude').focus();
+      return valid;
+    }
+
+    function buildWhatsAppMessage() {
+      const coords = getValidCoordinates();
+      const problemParts = [];
+      if (selectedProblemId) problemParts.push(canonicalProblemsEs[selectedProblemId]);
+      if ($('#problemDetails').value.trim()) problemParts.push($('#problemDetails').value.trim());
+      const clientLanguageMap = { es: 'Español', en: 'English', fr: 'Français', zh: '中文' };
+      const clientLanguage = clientLanguageMap[currentLang];
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${coords.lat.toFixed(7)},${coords.lng.toFixed(7)}`;
+
+      return [
+        '🛠️ *NUEVA SOLICITUD - SERVIMOTRIZ PTY* 🛠️',
+        '',
+        `• *Auto:* ${$('#carBrand').value.trim()} ${$('#carModel').value.trim()} ${$('#carYear').value.trim()}`,
+        `• *Problema:* ${problemParts.join(' — ')}`,
+        `• *Ubicación escrita:* ${$('#locationText').value.trim()}`,
+        `• *Coordenadas exactas:* ${coords.lat.toFixed(7)}, ${coords.lng.toFixed(7)}`,
+        `• *Abrir ubicación en mapas:* ${mapUrl}`,
+        `• *Idioma del cliente:* ${clientLanguage}`
+      ].join('\n');
+    }
+
+    function sendToWhatsApp(event) {
+      event.preventDefault();
+      if (!validateStep3()) return;
+      const message = buildWhatsAppMessage();
+      const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+    }
+
+    // ---- Theme (dark / light) ----
+    function applyTheme(theme) {
+      const isDark = theme === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+      $('#themeToggle').setAttribute('aria-checked', String(isDark));
+      $('#themeToggle').setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      $('#themeToggleIcon').textContent = isDark ? '🌙' : '☀️';
+      try { localStorage.setItem('servimotriz-theme', theme); } catch (e) { /* storage unavailable */ }
+    }
+
+    function initTheme() {
+      let stored = null;
+      try { stored = localStorage.getItem('servimotriz-theme'); } catch (e) { /* storage unavailable */ }
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      $('#currentYear').textContent = new Date().getFullYear();
+      initTheme();
+      initializeMap();
+      applyTranslations();
+      updateStatus();
+      setInterval(updateStatus, 60000);
+
+      $('#langSelect').addEventListener('change', (event) => {
+        currentLang = event.target.value;
+        applyTranslations();
+      });
+
+      $('#themeToggle').addEventListener('click', () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        applyTheme(isDark ? 'light' : 'dark');
+      });
+
+      document.addEventListener('click', (event) => {
+        const problemButton = event.target.closest('[data-problem-id]');
+        if (problemButton) {
+          selectedProblemId = problemButton.dataset.problemId;
+          renderProblemOptions();
+          $('#problemError').classList.add('hidden');
+          return;
         }
 
-        function applyTranslations(lang) {
-            const data = translations[lang];
-            if (!data) return;
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const path = el.dataset.i18n;
-                const value = path.split('.').reduce((obj, key) => obj?.[key], data);
-                if (value !== undefined) {
-                    el.innerHTML = value;
-                }
-            });
+        const next = event.target.closest('.next-step');
+        if (next) {
+          if (currentStep === 1 && !validateStep1()) return;
+          if (currentStep === 2 && !validateStep2()) return;
+          showStep(Number(next.dataset.next));
+          return;
         }
 
-        // ---- 2.2 SMOOTH SCROLL ----
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        const headerOffset = 80;
-                        const elementPosition = target.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        const prev = event.target.closest('.prev-step');
+        if (prev) showStep(Number(prev.dataset.prev));
+      });
 
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // ---- 2.3 NAVBAR CON EFECTO ----
-        function initNavbarScroll() {
-            const header = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 50) {
-                    header.classList.add('navbar-scrolled');
-                } else {
-                    header.classList.remove('navbar-scrolled');
-                }
-            }, { passive: true });
-        }
-
-        // ---- 2.4 INTERSECTION OBSERVER ----
-        function initIntersectionObserver() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in-up');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            document.querySelectorAll('.service-card, .garantia-card, .section-title, .section-subtitle').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // ---- 2.5 PERFORMANCE ----
-        function initPerformanceTracking() {
-            if (window.performance) {
-                const perfData = performance.timing;
-                const loadTime = perfData.loadEventEnd - perfData.navigationStart;
-                console.log(`[Performance] Página cargada en ${loadTime}ms`);
-            }
-
-            let maxScroll = 0;
-            window.addEventListener('scroll', () => {
-                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                if (scrollPercent > maxScroll) {
-                    maxScroll = scrollPercent;
-                    if (maxScroll >= 75) {
-                        console.log('[Engagement] Usuario alcanzó el 75% de la página');
-                    }
-                }
-            }, { passive: true });
-        }
-
-        // ---- 2.6 TOAST ----
-        function showToast(message, type = 'success') {
-            const existing = document.querySelector('.toast');
-            if (existing) existing.remove();
-
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
-        }
-
-        // ============================================================
-        // 3. QUOTE-WIZARD.JS - Cotizador Multipasos
-        // ============================================================
-        let currentStep = 1;
-        const totalSteps = 3;
-        let map = null;
-        let userMarker = null;
-        let baseMarker = null;
-
-        // ---- 3.1 INICIALIZAR WIZARD ----
-        function initWizard() {
-            showStep(currentStep);
-            updateProgress();
-        }
-
-        function showStep(step) {
-            document.querySelectorAll('.wizard-step').forEach(el => {
-                el.classList.remove('active');
-                if (parseInt(el.dataset.step) === step) {
-                    el.classList.add('active');
-                }
-            });
-
-            for (let i = 1; i <= totalSteps; i++) {
-                const indicator = document.getElementById(`stepIndicator${i}`);
-                indicator.classList.remove('step-active', 'step-completed', 'step-inactive');
-                
-                if (i === step) {
-                    indicator.classList.add('step-active');
-                    indicator.textContent = i;
-                } else if (i < step) {
-                    indicator.classList.add('step-completed');
-                    indicator.textContent = '✓';
-                } else {
-                    indicator.classList.add('step-inactive');
-                    indicator.textContent = i;
-                }
-            }
-
-            updateProgress();
-
-            if (step === 3 && map) {
-                setTimeout(() => map.invalidateSize(), 200);
-            }
-
-            document.getElementById('cotizador').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function updateProgress() {
-            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
-            document.querySelectorAll('.progress-bar-fill').forEach(el => {
-                el.style.width = `${progress}%`;
-            });
-        }
-
-        window.goToStep = function(step) {
-            if (step === 2) {
-                const marca = document.getElementById('vehiculoMarca').value.trim();
-                const modelo = document.getElementById('vehiculoModelo').value.trim();
-                const anio = document.getElementById('vehiculoAnio').value.trim();
-                
-                if (!marca || !modelo || !anio) {
-                    showToast('⚠️ Por favor completa todos los datos del vehículo.', 'warning');
-                    return;
-                }
-                
-                if (isNaN(anio) || parseInt(anio) < 1980 || parseInt(anio) > 2026) {
-                    showToast('⚠️ Ingresa un año válido (1980-2026).', 'warning');
-                    return;
-                }
-            }
-            
-            if (step === 3) {
-                const problema = document.getElementById('problemaSeleccionado').value;
-                const otro = document.getElementById('problemaOtro').value.trim();
-                if (!problema && !otro) {
-                    showToast('⚠️ Selecciona un problema o describe el daño.', 'warning');
-                    return;
-                }
-            }
-
-            currentStep = step;
-            showStep(currentStep);
-        };
-
-        // ---- 3.2 BOTONES DE PROBLEMA ----
-        function initProblemButtons() {
-            document.querySelectorAll('.problema-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.problema-btn').forEach(b => {
-                        b.classList.remove('selected');
-                    });
-                    
-                    this.classList.add('selected');
-                    document.getElementById('problemaSeleccionado').value = this.dataset.value;
-                    
-                    if (navigator.vibrate) navigator.vibrate(10);
-                });
-            });
-        }
-
-        // ---- 3.3 MAPA CON LEAFLET ----
-        function initMap() {
-            const coords = [8.9472, -79.6558];
-            
-            map = L.map('map', {
-                center: coords,
-                zoom: 13,
-                zoomControl: true,
-                fadeAnimation: true,
-                attributionControl: true
-            });
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
-                maxZoom: 19
-            }).addTo(map);
-
-            const baseIcon = L.divIcon({
-                html: '<div style="background:#dc2626;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 16px rgba(220,38,38,0.4);border:3px solid #fff;">🔧</div>',
-                className: '',
-                iconSize: [40, 40],
-                iconAnchor: [20, 40]
-            });
-
-            baseMarker = L.marker(coords, { icon: baseIcon })
-                .addTo(map)
-                .bindPopup('<strong>Servimotriz PTY</strong><br>📍 Arraiján, Panamá')
-                .openPopup();
-        }
-
-        // ---- 3.4 MOSTRAR UBICACIÓN ----
-        function initLocationButton() {
-            const btn = document.getElementById('btnMostrarUbicacion');
-            const originalText = btn.innerHTML;
-
-            btn.addEventListener('click', function() {
-                if (!navigator.geolocation) {
-                    showToast('❌ Tu navegador no soporta geolocalización.', 'error');
-                    return;
-                }
-
-                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Obteniendo ubicación...';
-                this.disabled = true;
-
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const { latitude, longitude } = position.coords;
-                        const userCoords = [latitude, longitude];
-
-                        if (userMarker) map.removeLayer(userMarker);
-
-                        const userIcon = L.divIcon({
-                            html: '<div style="background:#3b82f6;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(59,130,246,0.4);border:3px solid #fff;">📍</div>',
-                            className: '',
-                            iconSize: [36, 36],
-                            iconAnchor: [18, 36]
-                        });
-
-                        userMarker = L.marker(userCoords, { icon: userIcon })
-                            .addTo(map)
-                            .bindPopup('📍 <strong>Tu ubicación</strong>')
-                            .openPopup();
-
-                        map.flyTo(userCoords, 14, {
-                            duration: 1.5,
-                            easeLinearity: 0.25
-                        });
-
-                        // Geocoding inverso
-                        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.display_name) {
-                                    const parts = data.display_name.split(',');
-                                    const zona = parts.slice(0, 3).join(', ').trim();
-                                    document.getElementById('ubicacionZona').value = zona;
-                                    showToast('✅ Ubicación detectada automáticamente.', 'success');
-                                }
-                            })
-                            .catch(() => {});
-
-                        this.innerHTML = originalText;
-                        this.disabled = false;
-                        showToast('✅ Ubicación obtenida correctamente.', 'success');
-                    },
-                    (error) => {
-                        this.innerHTML = originalText;
-                        this.disabled = false;
-                        
-                        let msg = '❌ No se pudo obtener tu ubicación. ';
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                msg += 'Permiso denegado. Activa la ubicación en tu navegador.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                msg += 'No hay señal de GPS.';
-                                break;
-                            default:
-                                msg += 'Intenta nuevamente.';
-                        }
-                        showToast(msg, 'error');
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            });
-        }
-
-        // ---- 3.5 ENVÍO DEL FORMULARIO ----
-        function initFormSubmit() {
-            document.getElementById('wizardForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const marca = document.getElementById('vehiculoMarca').value.trim();
-                const modelo = document.getElementById('vehiculoModelo').value.trim();
-                const anio = document.getElementById('vehiculoAnio').value.trim();
-                const problemaSeleccionado = document.getElementById('problemaSeleccionado').value;
-                const problemaOtro = document.getElementById('problemaOtro').value.trim();
-                const zona = document.getElementById('ubicacionZona').value.trim();
-
-                if (!zona) {
-                    showToast('⚠️ Ingresa tu zona de ubicación.', 'warning');
-                    return;
-                }
-
-                const problema = problemaSeleccionado || problemaOtro || 'No especificado';
-                const mensaje = `
-        🛠️ *NUEVA SOLICITUD - SERVIMOTRIZ PTY* 🛠️
-        • *Auto:* ${marca} ${modelo} (${anio})
-        • *Problema:* ${problema}
-        • *Ubicación:* ${zona}
-                `.trim();
-
-                const encoded = encodeURIComponent(mensaje);
-                const url = `https://api.whatsapp.com/send?phone=50764773172&text=${encoded}`;
-
-                console.log('[Conversión] Solicitud enviada:', { marca, modelo, anio, problema, zona });
-                
-                window.open(url, '_blank');
-                showToast('✅ ¡Solicitud enviada! Te esperamos en WhatsApp.', 'success');
-                
-                setTimeout(() => resetWizard(), 3000);
-            });
-        }
-
-        // ---- 3.6 RESET DEL WIZARD ----
-        function resetWizard() {
-            document.getElementById('vehiculoMarca').value = '';
-            document.getElementById('vehiculoModelo').value = '';
-            document.getElementById('vehiculoAnio').value = '';
-            document.getElementById('problemaSeleccionado').value = '';
-            document.getElementById('problemaOtro').value = '';
-            document.getElementById('ubicacionZona').value = '';
-            
-            document.querySelectorAll('.problema-btn').forEach(b => {
-                b.classList.remove('selected');
-            });
-
-            currentStep = 1;
-            showStep(currentStep);
-        }
-    </script>
-
+      $('#getLocationBtn').addEventListener('click', useCurrentLocation);
+      $('#latitude').addEventListener('change', handleManualCoordinates);
+      $('#longitude').addEventListener('change', handleManualCoordinates);
+      $('#wizardForm').addEventListener('submit', sendToWhatsApp);
+    });
+  </script>
 </body>
 </html>
